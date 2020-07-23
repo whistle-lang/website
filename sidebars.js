@@ -5,6 +5,6 @@ module.exports = {
       "getting-started/installation",
       "getting-started/hello-world",
     ],
-    Specification: ["specification/syntax"],
+    Specification: ["specification/grammar"],
   },
 };

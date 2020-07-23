@@ -1,4 +1,0 @@
----
-id: syntax
-title: Syntax
----
