@@ -1,0 +1,4 @@
+---
+id: syntax
+title: Syntax
+---
