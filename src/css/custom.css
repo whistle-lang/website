@@ -55,7 +55,7 @@
   }
 }
 
-:root[data-theme='dark'] {
+:root[data-theme="dark"] {
   --ifm-color-primary: #9088b3;
   --ifm-color-primary-dark: #7b7499;
   --ifm-color-primary-darker: #676180;
@@ -68,7 +68,7 @@
   --ifm-blockquote-color-dark: #676180;
 }
 
-:root[data-theme='dark'] .hero.hero--primary {
+:root[data-theme="dark"] .hero.hero--primary {
   --ifm-hero-background-color: #9088b3;
   --ifm-hero-text-color: #ffffff;
 }

@@ -38,7 +38,7 @@ module.exports = {
             {
               label: "Introduction",
               to: "docs/",
-            }
+            },
           ],
         },
         {

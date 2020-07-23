@@ -6,7 +6,8 @@
     "start": "docusaurus start",
     "build": "docusaurus build",
     "swizzle": "docusaurus swizzle",
-    "deploy": "docusaurus deploy"
+    "deploy": "yarn fmt && docusaurus deploy",
+    "fmt": "prettier --write ."
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-alpha.58",
@@ -14,6 +15,9 @@
     "clsx": "^1.1.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
+  },
+  "devDependencies": {
+    "prettier": "2.0.5"
   },
   "browserslist": {
     "production": [
