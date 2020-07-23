@@ -1,7 +1,7 @@
 module.exports = {
   title: "Whistle",
   tagline: "One hella programming language",
-  url: "https://whistle.js.org",
+  url: "https://whistle-lang.github.io/website",
   baseUrl: "/",
   favicon: "assets/whistle_transparent_light.png",
   organizationName: "whistle-lang", // Usually your GitHub org/user name.
