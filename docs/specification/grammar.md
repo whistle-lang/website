@@ -22,9 +22,7 @@ is used. The following table describes all of the used notations in the grammar 
 | comment       | `//`       |
 | comment       | `/*`, `*/` |
 
-## The Whistle Grammar Specification
-
-### Characters, letters and digits
+## Characters, letters and digits
 
 There are a few predefined values that could not easily be written as valid EBNF, these are instead written with the value of a comment which describes its content.
 
@@ -40,7 +38,7 @@ digits_octal      = { "0" ... "7" }
 digits_hex        = { "0" ... "9" | "A" ... "F" | "a" ... "f" }
 ```
 
-### Whitespace
+## Whitespace
 
 In _Whistle_ whitespace serves no purpose but to separate tokens and if included in a literal that explicitly allows it (string and character literals).
 
@@ -48,7 +46,7 @@ In _Whistle_ whitespace serves no purpose but to separate tokens and if included
 whitespace = " " | "\t" | "\r" | "\n"
 ```
 
-### Comments
+## Comments
 
 Just like whitespace comments get ignored unless it is in a literal that explicitly allows it. _Whistle_ provides two comment types: line comments and multiline/inline comments.
 
@@ -58,7 +56,7 @@ comment_line   = "//" , { unicode_char } , "\n"
 comment_inline = "/*" , { unicode_char } , "*/"
 ```
 
-### Identifiers
+## Identifiers
 
 Identifiers are mainly used in _Whistle_ to name certain entities such as types, functions and variables. Some identifiers however are reserved as keywords and are not allowed for naming.
 
@@ -69,7 +67,7 @@ ident_as     = ident , "as" , ident
 ident_import = ident_as | ident
 ```
 
-### Keywords
+## Keywords
 
 The following identifiers reserved as keywords in _Whistle_ are currently:
 
@@ -88,7 +86,7 @@ for       in        match
 type      struct    trait
 ```
 
-### Operators
+## Operators
 
 Operators are defined by one or more operator characters coming after each other.
 
@@ -100,7 +98,7 @@ operator_character = "+" | "-" | "*" | "/"
                    | "&" | "?" | "<" | ">"
 ```
 
-### Literals
+## Literals
 
 Literals in _Whistle_ represent a fixed value.
 
@@ -126,16 +124,16 @@ float       = ( digits_decimal , "." , [ digits_decimal ] , [ exponent ] )
             | ( "." , digits_decimal , exponent )
 exponent    = ( "e" | "E" ) , [ "+" | "-" ] , digits_decimal
 
-string      = "\"" , { unicode_char | "\n" } , "\""
+string      = "\"" , { unicode_char - "\"" | "\n" } , "\""
 
-char        = "'" , ( unicode_char | "\n" ) , "'"
+char        = "'" , ( unicode_char - "\'" | "\n" ) , "'"
 
 bool        = "true" | "false"
 
 null        = "null"
 ```
 
-### Tips
+## Tips
 
 Tips are in _Whistle_ similar to macros. They tell the compiler certain stuff
 and are very useful for a plethera of reasons. There are two types of tips in
@@ -147,7 +145,7 @@ tip_line  =  { unicode_char } , "\n"
 tip_block = "{" , { unicode_char } , "}"
 ```
 
-### Expressions
+## Expressions
 
 Expressions specify the computation of a value by applying operators to an operands.
 
@@ -178,7 +176,7 @@ arguments       = "(" , [ expression , { "," , expression } ] , ")"
 // slice        = primary , "[" , [ expression ] , ":" , [ expression ] , [ ":" , [ expression ] ] , "]"
 ```
 
-### Statements
+## Statements
 
 Statements control the execution and flow of the program.
 
@@ -208,7 +206,7 @@ block     = "{" , { statement } , "}"
 import    = "import" , [ ident_import , { "," , ident_import } , "from" ] , string
 ```
 
-### Grammar
+## Grammar
 
 Finally the grammar of the _Whistle_ programming language can be described as zero or more `statement`s repeating.
 
