@@ -38,9 +38,10 @@ whitespace = " " | "\t" | "\r" | "\n"
 
 ### Comments
 
-Just like whitespace comments get ignored unless it is in a literal that explicitly allows it. _Whistle_ provides two comment types: line comments and multiline/inline comments specified as following:
+Just like whitespace comments get ignored unless it is in a literal that explicitly allows it. _Whistle_ provides two comment types: line comments and multiline/inline comments.
 
 ```
+comment = line_comment | inline_comment
 line_comment   = "//" , { unicode_character } , "\n"
 inline_comment = "/*" , { unicode_character } , "*/"
 ```
@@ -50,7 +51,8 @@ inline_comment = "/*" , { unicode_character } , "*/"
 Identifiers are mainly used in _Whistle_ to name certain entities such as types, functions and variables. Some identifiers however are reserved as keywords and are not allowed for naming.
 
 ```
-identifier = letter , { letter | unicode_digit }
+identifier       = letter , { letter | unicode_digit }
+identifier_typed = identifier , ":" , identifier
 ```
 
 ### Keywords
@@ -77,15 +79,28 @@ type      struct    trait
 Operators are defined by one or more operator characters coming after each other.
 
 ```
-operator_character = "+" | "-" | "*" | "/" | "%" | "^" | "=" | ":" | "." | ";"
-                   | "!" | "|" | "&" | "!" | "<" | ">"
 operator = { operator_character }
+operator_character = "+" | "-" | "*" | "/"
+                   | "%" | "^" | "=" | ":"
+                   | "." | ";" | "!" | "|"
+                   | "&" | "!" | "<" | ">"
 ```
 
-### Number Literals
+### Literals
+
+Literals in _Whistle_ represent a fixed value.
 
 ```
-integer         = integer_decimal | integer_binary | integer_octal | integer_hex
+literal         = integer
+                | float
+                | string
+                | char
+                | bool
+
+integer         = integer_decimal
+                | integer_binary
+                | integer_octal
+                | integer_hex
 integer_decimal = digits_decimal
 integer_binary  = "0" , ( "b" | "B" ) , digits_binary
 integer_octal   = "0" , ( "o" | "O" ) , digits_octal
@@ -95,16 +110,43 @@ float           = ( digits_decimal , "." , [ digits_decimal ] , [ exponent ] )
                 | ( digits_decimal , exponent )
                 | ( "." , digits_decimal , exponent )
 exponent        = ( "e" | "E" ) , [ "+" | "-" ] , digits_decimal
-```
 
-### String Literals
 
-```
 string = "\"" , { unicode_character | "\n" } , "\""
-```
 
-### Char Literals
 
-```
 char = "'" , ( unicode_character | "\n" ) , "'"
+
+bool = "true" | "false"
+```
+
+### Tips
+
+Tips are in _Whistle_ similar to macros. They tell the compiler certain stuff
+and are very useful for a plethera of reasons. There are two types of tips in
+_Whistle_: line tips and multiline/inline tips.
+
+```
+tip       = "#(" , identifier  ,  ")" , ( tip_line | tip_block )
+tip_line  =  { unicode_character } , "\n"
+tip_block = "{" , { unicode_character } , "}"
+```
+
+### Expressions
+
+```
+expression      = unary
+                | binary
+                | conditional
+                | function_call
+                | variable_access
+                | grouping
+                | literal
+
+unary           = operator , expression
+binary          = expression , operator , expression
+conditional     = "if" , expression , expression , "else" , expression
+function_call   = identifier , "(" , [ identifier_typed ] , { "," , identifier_typed } , ")"
+variable_access = identifier
+grouping        = "(" , expression , ")"
 ```
