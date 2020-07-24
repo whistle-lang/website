@@ -17,13 +17,11 @@ In this case a new file called `HelloWorld.whi` will be created with the followi
 content:
 
 ```
-function Log(text: string): none {
+fun log(text: string): none {
   #(js) console.log(text);
 }
 
-{
-  Log("Hello, World!")
-}
+log("Hello, World!")
 ```
 
 All we need to do now to run the program is to run the following in your terminal:
@@ -48,14 +46,14 @@ The `Hello, World!` program shows quite a few of *Whistle*s design choices and
 how to use some of the basic features of _Whistle_.
 
 The first important piece of the program is the function declaration declared
-using the `function` keyword. This tells the [parser](internals/parser.md) to
+using the fun keyword. This tells the [parser](internals/parser.md) to
 expect the name or so called `identifier` of the function. After this an optional
 parenthesis enclosed part comes which specifies all of the parameter names and
 their respective types. Before the last part which is the actual function body
 statement the return type of the function is specified.
 
 ```
-function Log(text: string): none {
+fun log(text: string): none {
 
 }
 ```
@@ -76,19 +74,11 @@ a program compiled to javascript.
 In our case this tells the compiler to call the javascript method `console.log`
 directly to print our text parameter to console.
 
-Finally we come to the last part of the `Hello, World!` example, the anonomyous
-code block containing code that we want to run as soon as the program loads.
-This is specified by enclosing multiple statements in braces (`{` and `}`).
-Only anonomyous code blocks are automatically executed at run time while codeblocks
-following for example function declarations are not executed.
-
-```
-{
-  Log("Hello, World!")
-}
-```
-
-In our anonomyous code block we have a function call statement which calls the
+Finally we come to the last part of the `Hello, World!` example, a function call statement which calls the
 function previously declared. It does this by first specifying the identifier of
-the function to call (in this case `Log`) and then enclosing all of the parameters
+the function to call (in this case `log`) and then enclosing all of the parameters
 to pass to the function in parethesis separated by commas.
+
+```
+log("Hello, World!")
+```

@@ -6,9 +6,21 @@ title: Grammar
 ## Notation
 
 To describe the grammar fo _Whistle_, [extended Backus-Naur form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus–Naur_form)
-is used.
+is used. The following table describes all of the used notations in the grammar specification of _Whistle_.
 
-The operator `...` represents a range from the toke that comes before to the that comes after as alternatives. For examaple `"A" ... "C"` is equivelent to `"A" | "B" | "C"`. Line comments are specified using double slashes (`//`) and continue until a new line character is encountered while multiline comments are nesting and start with `/*` and end with `*/`.
+| usage         | notation   |
+| ------------- | ---------- |
+| definition    | `=`        |
+| concatination | `,`        |
+| alteration    | `|`        |
+| optional      | `[`, `]`   |
+| repetition    | `{`, `}`   |
+| grouping      | `(`, `)`   |
+| string        | `"`, `"`   |
+| exception     | `-`        |
+| range         | `...`      |
+| comment       | `//`       |
+| comment       | `/*`, `*/` |
 
 ## The Whistle Grammar Specification
 
@@ -17,7 +29,7 @@ The operator `...` represents a range from the toke that comes before to the tha
 There are a few predefined values that could not easily be written as valid EBNF, these are instead written with the value of a comment which describes its content.
 
 ```
-unicode_character = // any Unicode code point except newline
+unicode_char      = // any Unicode code point except newline
 unicode_letter    = // any Unicode code point classified as a "Letter"
 unicode_digit     = // any Unicode code point classified as a "Digit"
 
@@ -41,9 +53,9 @@ whitespace = " " | "\t" | "\r" | "\n"
 Just like whitespace comments get ignored unless it is in a literal that explicitly allows it. _Whistle_ provides two comment types: line comments and multiline/inline comments.
 
 ```
-comment = line_comment | inline_comment
-line_comment   = "//" , { unicode_character } , "\n"
-inline_comment = "/*" , { unicode_character } , "*/"
+comment        = comment_line | comment_inline
+comment_line   = "//" , { unicode_char } , "\n"
+comment_inline = "/*" , { unicode_char } , "*/"
 ```
 
 ### Identifiers
@@ -51,8 +63,10 @@ inline_comment = "/*" , { unicode_character } , "*/"
 Identifiers are mainly used in _Whistle_ to name certain entities such as types, functions and variables. Some identifiers however are reserved as keywords and are not allowed for naming.
 
 ```
-identifier       = letter , { letter | unicode_digit }
-identifier_typed = identifier , ":" , identifier
+ident        = letter , { letter | unicode_digit }
+ident_typed  = ident , ":" , ident
+ident_as     = ident , "as" , ident
+ident_import = ident_as | ident
 ```
 
 ### Keywords
@@ -63,8 +77,8 @@ The following identifiers reserved as keywords in _Whistle_ are currently:
 import    as        from
 export    fun       return
 if        else      while
-loop      break     continue
-var       val
+break     continue  var
+val
 ```
 
 And here are some of the planned keywords:
@@ -79,7 +93,7 @@ type      struct    trait
 Operators are defined by one or more operator characters coming after each other.
 
 ```
-operator = { operator_character }
+operator           = { operator_character }
 operator_character = "+" | "-" | "*" | "/"
                    | "%" | "^" | "=" | ":"
                    | "." | ";" | "!" | "|"
@@ -91,33 +105,31 @@ operator_character = "+" | "-" | "*" | "/"
 Literals in _Whistle_ represent a fixed value.
 
 ```
-literal         = integer
-                | float
-                | string
-                | char
-                | bool
+literal     = int
+            | float
+            | string
+            | char
+            | bool
 
-integer         = integer_decimal
-                | integer_binary
-                | integer_octal
-                | integer_hex
-integer_decimal = digits_decimal
-integer_binary  = "0" , ( "b" | "B" ) , digits_binary
-integer_octal   = "0" , ( "o" | "O" ) , digits_octal
-integer_hex     = "0" , ( "x" | "X" ) , digits_hex
+int         = int_decimal
+            | int_binary
+            | int_octal
+            | int_hex
+int_decimal = digits_decimal
+int_binary  = "0" , ( "b" | "B" ) , digits_binary
+int_octal   = "0" , ( "o" | "O" ) , digits_octal
+int_hex     = "0" , ( "x" | "X" ) , digits_hex
 
-float           = ( digits_decimal , "." , [ digits_decimal ] , [ exponent ] )
-                | ( digits_decimal , exponent )
-                | ( "." , digits_decimal , exponent )
-exponent        = ( "e" | "E" ) , [ "+" | "-" ] , digits_decimal
+float       = ( digits_decimal , "." , [ digits_decimal ] , [ exponent ] )
+            | ( digits_decimal , exponent )
+            | ( "." , digits_decimal , exponent )
+exponent    = ( "e" | "E" ) , [ "+" | "-" ] , digits_decimal
 
+string      = "\"" , { unicode_char | "\n" } , "\""
 
-string = "\"" , { unicode_character | "\n" } , "\""
+char        = "'" , ( unicode_char | "\n" ) , "'"
 
-
-char = "'" , ( unicode_character | "\n" ) , "'"
-
-bool = "true" | "false"
+bool        = "true" | "false"
 ```
 
 ### Tips
@@ -127,27 +139,76 @@ and are very useful for a plethera of reasons. There are two types of tips in
 _Whistle_: line tips and multiline/inline tips.
 
 ```
-tip       = "#(" , identifier  ,  ")" , ( tip_line | tip_block )
-tip_line  =  { unicode_character } , "\n"
-tip_block = "{" , { unicode_character } , "}"
+tip       = "#(" , ident ,  ")" , ( tip_line | tip_block )
+tip_line  =  { unicode_char } , "\n"
+tip_block = "{" , { unicode_char } , "}"
 ```
 
 ### Expressions
 
-```
-expression      = unary
-                | binary
-                | conditional
-                | function_call
-                | variable_access
-                | grouping
-                | literal
+Expressions specify the computation of a value by applying operators to an operands.
 
-unary           = operator , expression
+**Disclaimers**:
+
+- The syntax for conditionals in _Whistle_ is still undecided
+- Both index and slice array accessing is not ready along with which is why it is commented
+
+```
+expression      = unary | binary
+
+unary           = primary | ( operator , unary )
 binary          = expression , operator , expression
-// The syntax for conditionals in Whistle is still undecided
-conditional     = "if" , expression , expression , "else" , expression
-function_call   = identifier , "(" , [ expression ] , { "," , expression } , ")"
-variable_access = identifier
+
+primary         = operand
+                | conditional
+                | ( primary , selector )
+                | ( primary , arguments )
+//              | ( primary , index )
+//              | ( primary , slice )
+
+conditional     = expression , "if" , expression , "else" , expression
+operand         = literal | ident | grouping
 grouping        = "(" , expression , ")"
+selector        = "." , ident
+arguments       = "(" , [ expression , { "," , expression } ] , ")"
+// index        = primary , "[" , expression , "]"
+// slice        = primary , "[" , [ expression ] , ":" , [ expression ] , [ ":" , [ expression ] ] , "]"
+```
+
+### Statements
+
+Statements control the execution and flow of the program.
+
+```
+statement = if
+          | while
+          | continue
+          | break
+          | return
+          | var_decl
+          | val_decl
+          | fun_decl
+          | block
+          | import
+          | tip
+          | expression
+
+if        = "if" , expression , statement , [ "else", statement ]
+while     = "while" , [ expression ] , statement
+continue  = "continue"
+break     = "break"
+return    = "return" , [ expression ]
+var_decl  = "var" , ident_typed , operator , expression
+val_decl  = "val" , ident_typed , operator , expression
+fun_decl  = "fun" , ident , { "(" , ident_typed , { "," , ident_typed } ")" } , ":" , ident , statement
+block     = "{" , { statement } , "}"
+import    = "import" , [ ident_import , { "," , ident_import } , "from" ] , string
+```
+
+### Grammar
+
+Finally the grammar of the _Whistle_ programming language can be described as zero or more `statement`s repeating.
+
+```
+grammar = { statement }
 ```
