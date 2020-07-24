@@ -97,7 +97,7 @@ operator           = { operator_character }
 operator_character = "+" | "-" | "*" | "/"
                    | "%" | "^" | "=" | ":"
                    | "." | ";" | "!" | "|"
-                   | "&" | "!" | "<" | ">"
+                   | "&" | "?" | "<" | ">"
 ```
 
 ### Literals
