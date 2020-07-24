@@ -145,6 +145,7 @@ expression      = unary
 
 unary           = operator , expression
 binary          = expression , operator , expression
+// The syntax for conditionals in Whistle is still undecided
 conditional     = "if" , expression , expression , "else" , expression
 function_call   = identifier , "(" , [ identifier_typed ] , { "," , identifier_typed } , ")"
 variable_access = identifier
