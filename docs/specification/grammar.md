@@ -110,6 +110,7 @@ literal     = int
             | string
             | char
             | bool
+            | null
 
 int         = int_decimal
             | int_binary
@@ -130,6 +131,8 @@ string      = "\"" , { unicode_char | "\n" } , "\""
 char        = "'" , ( unicode_char | "\n" ) , "'"
 
 bool        = "true" | "false"
+
+null        = "null"
 ```
 
 ### Tips
