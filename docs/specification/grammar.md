@@ -151,7 +151,7 @@ Expressions specify the computation of a value by applying operators to an opera
 **Disclaimers**:
 
 - The syntax for conditionals in _Whistle_ is still undecided
-- Both index and slice array accessing is not ready along with which is why it is commented
+- Both index and slice array accessing is not ready along with arrays which is why it is commented
 
 ```
 expression      = unary | binary
