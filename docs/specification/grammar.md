@@ -91,11 +91,12 @@ type      struct    trait
 Operators are defined by one or more operator characters coming after each other.
 
 ```
-operator           = { operator_character }
-operator_character = "+" | "-" | "*" | "/"
-                   | "%" | "^" | "=" | ":"
-                   | "." | ";" | "!" | "|"
-                   | "&" | "?" | "<" | ">"
+operator_unary     = "+"   | "-"   | "!"   | "~"
+operator_binary    = "+"   | "-"   | "*"   | "/"   | "%"   | "**"  | "=="
+                   | "!="  | "<="  | "<"   | ">"   | ">="  | "&&"  | "||"
+                   | "<<"  | ">>"  | "&"   | "|"   | "^"   | operator_assign
+operator_assign    = "="   | "+="  | "-="  | "*"=  | "/="  | "%="  | "**="
+                   | "&&=" | "||=" | "<<=" | ">>=" | "&="  | "|="  | "^="
 ```
 
 ## Literals
@@ -108,7 +109,7 @@ literal     = int
             | string
             | char
             | bool
-            | null
+            | none
 
 int         = int_decimal
             | int_binary
@@ -130,7 +131,7 @@ char        = "'" , ( unicode_char - "\'" | "\n" ) , "'"
 
 bool        = "true" | "false"
 
-null        = "null"
+none        = "none"
 ```
 
 ## Tips
@@ -157,8 +158,8 @@ Expressions specify the computation of a value by applying operators to an opera
 ```
 expression      = unary | binary
 
-unary           = primary | ( operator , unary )
-binary          = expression , operator , expression
+unary           = primary | ( operator_unary , unary )
+binary          = expression , operator_binary , expression
 
 primary         = operand
                 | conditional
@@ -199,8 +200,8 @@ while     = "while" , [ expression ] , statement
 continue  = "continue"
 break     = "break"
 return    = "return" , [ expression ]
-var_decl  = "var" , ident_typed , operator , expression
-val_decl  = "val" , ident_typed , operator , expression
+var_decl  = "var" , ident_typed , operator_assign , expression
+val_decl  = "val" , ident_typed , operator_assign , expression
 fun_decl  = "fun" , ident , { "(" , ident_typed , { "," , ident_typed } ")" } , ":" , ident , statement
 block     = "{" , { statement } , "}"
 import    = "import" , [ ident_import , { "," , ident_import } , "from" ] , string
