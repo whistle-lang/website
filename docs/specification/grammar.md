@@ -8,19 +8,19 @@ title: Grammar
 To describe the grammar fo _Whistle_, [extended Backus-Naur form (EBNF)](https://en.wikipedia.org/wiki/Extended_Backus–Naur_form)
 is used. The following table describes all of the used notations in the grammar specification of _Whistle_.
 
-| usage         | notation   |
-| ------------- | ---------- |
-| definition    | `=`        |
-| concatination | `,`        |
-| alteration    | `|`        |
-| optional      | `[`, `]`   |
-| repetition    | `{`, `}`   |
-| grouping      | `(`, `)`   |
-| string        | `"`, `"`   |
-| exception     | `-`        |
-| range         | `...`      |
-| comment       | `//`       |
-| comment       | `/*`, `*/` |
+| usage         | notation            |
+| ------------- | ------------------- |
+| definition    | `=`                 |
+| concatination | `,`                 |
+| alteration    | <code>&#124;</code> |
+| optional      | `[`, `]`            |
+| repetition    | `{`, `}`            |
+| grouping      | `(`, `)`            |
+| string        | `"`, `"`            |
+| exception     | `-`                 |
+| range         | `...`               |
+| comment       | `//`                |
+| comment       | `/*`, `*/`          |
 
 ## Characters, letters and digits
 
