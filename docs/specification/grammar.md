@@ -91,12 +91,13 @@ type      struct    trait
 Operators are defined by one or more operator characters coming after each other.
 
 ```
-operator_unary     = "+"   | "-"   | "!"   | "~"
+operator_unary     = "-"   | "!"   | "~"
 operator_binary    = "+"   | "-"   | "*"   | "/"   | "%"   | "**"  | "=="
                    | "!="  | "<="  | "<"   | ">"   | ">="  | "&&"  | "||"
-                   | "<<"  | ">>"  | "&"   | "|"   | "^"   | operator_assign
-operator_assign    = "="   | "+="  | "-="  | "*"=  | "/="  | "%="  | "**="
-                   | "&&=" | "||=" | "<<=" | ">>=" | "&="  | "|="  | "^="
+                   | "<<"  | ">>"  | "&"   | "|"   | "^"   | "+="  | "-="
+                   | "*"=  | "/="  | "%="  | "**=" | "&&=" | "||=" | "<<="
+                   | ">>=" | "&="  | "|="  | "^="  | operator_assign
+operator_assign    = "="
 ```
 
 ## Literals

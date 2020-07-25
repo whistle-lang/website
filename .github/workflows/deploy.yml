@@ -12,7 +12,7 @@ jobs:
           submodules: true
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Test Build
         run: |
           if [ -e yarn.lock ]; then
@@ -32,7 +32,7 @@ jobs:
           submodules: true
       - uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version: "12.x"
       - name: Add key to allow access to repository
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
