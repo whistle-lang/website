@@ -9,6 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
+          ssh-key: ${{ secrets.GH_PAGES_DEPLOY }}
           submodules: true
       - uses: actions/setup-node@v1
         with:
@@ -29,6 +30,7 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
+          ssh-key: ${{ secrets.GH_PAGES_DEPLOY }}
           submodules: true
       - uses: actions/setup-node@v1
         with:
