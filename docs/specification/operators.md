@@ -7,11 +7,9 @@ title: Operators
 
 Unary operators appear before the operand in _Whistle_ and modifies it in a set way:
 
-```
 operator operand
-```
 
-For exampe `-10` where `-` is the operator and `10` is the operand.
+For exampe -10 where - is the operator and 10 is the operand.
 
 | precedence | operator | operand type  | description                                                    |
 | ---------- | -------- | ------------- | -------------------------------------------------------------- |
@@ -23,11 +21,9 @@ For exampe `-10` where `-` is the operator and `10` is the operand.
 
 Binary operators appear between to operands:
 
-```
 operand operator operand
-```
 
-For exampe `5 - 10` where `-` is the operator, `5` and `10` is the operands.
+For exampe 5 - 10 where - is the operator, 5 and 10 is the operands.
 
 ### Arithmetic Operators
 
@@ -59,10 +55,10 @@ For exampe `5 - 10` where `-` is the operator, `5` and `10` is the operands.
 
 ### Logical Operators
 
-| precedence | operand | operator | operand | description                 |
-| ---------- | ------- | -------- | ------- | --------------------------- |
-| 10         | Boolean | &&       | Boolean | Are both the operands true? |
-| 11         | Boolean |          |         |                             | Boolean | Is one of the operands true? |
+| precedence | operand | operator     | operand | description                  |
+| ---------- | ------- | ------------ | ------- | ---------------------------- |
+| 10         | Boolean | &&           | Boolean | Are both the operands true?  |
+| 11         | Boolean | &#124;&#124; | Boolean | Is one of the operands true? |
 
 ### Bitwise Operators
 
@@ -76,30 +72,28 @@ For exampe `5 - 10` where `-` is the operator, `5` and `10` is the operands.
 
 ### Assignment Operators
 
-| precedence | operand | operator | operand | description/equivalent                         |
-| ---------- | ------- | -------- | ------- | ---------------------------------------------- |
-| 12         | Number  | \*\*=    | Number  | `left_operand = left_operand ** right_operand` |
-| 13         | Number  | \*=      | Number  | `left_operand = left_operand * right_operand`  |
-| 13         | Number  | /=       | Number  | `left_operand = left_operand / right_operand`  |
-| 13         | Number  | %=       | Number  | `left_operand = left_operand % right_operand`  |
-| 14         | String  | +=       | String  | `left_operand = left_operand + right_operand`  |
-| 14         | Number  | +=       | Number  | `left_operand = left_operand + right_operand`  |
-| 14         | Number  | -=       | Number  | `left_operand = left_operand - right_operand`  |
-| 15         | Number  | >>=      | Number  | `left_operand = left_operand >> right_operand` |
-| 15         | Number  | <<=      | Number  | `left_operand = left_operand << right_operand` |
-| 16         | Number  | &=       | Number  | `left_operand = left_operand & right_operand`  |
-| 17         | Number  | ^=       | Number  | `left_operand = left_operand ^ right_operand`  |
-| 18         | Number  | \|=      | Number  | `left_operand = left_operand | right_operand`  |
-| 19         | Boolean | &&=      | Boolean | `left_operand = left_operand && right_operand` |
-| 20         | Boolean | \|\|=    | Boolean | `left_operand = left_operand || right_operand` |
-| 21         | Any     | =        | Any     | Assigns the right value to the left            |
+| precedence | operand | operator | operand | description/equivalent                                 |
+| ---------- | ------- | -------- | ------- | ------------------------------------------------------ |
+| 12         | Number  | \*\*=    | Number  | left_operand = left_operand \*\* right_operand         |
+| 13         | Number  | \*=      | Number  | left_operand = left_operand \* right_operand           |
+| 13         | Number  | /=       | Number  | left_operand = left_operand / right_operand            |
+| 13         | Number  | %=       | Number  | left_operand = left_operand % right_operand            |
+| 14         | String  | +=       | String  | left_operand = left_operand + right_operand            |
+| 14         | Number  | +=       | Number  | left_operand = left_operand + right_operand            |
+| 14         | Number  | -=       | Number  | left_operand = left_operand - right_operand            |
+| 15         | Number  | >>=      | Number  | left_operand = left_operand >> right_operand           |
+| 15         | Number  | <<=      | Number  | left_operand = left_operand << right_operand           |
+| 16         | Number  | &=       | Number  | left_operand = left_operand & right_operand            |
+| 17         | Number  | ^=       | Number  | left_operand = left_operand ^ right_operand            |
+| 18         | Number  | \|=      | Number  | left_operand = left_operand &#124; right_operand       |
+| 19         | Boolean | &&=      | Boolean | left_operand = left_operand && right_operand           |
+| 20         | Boolean | \|\|=    | Boolean | left_operand = left_operand &#124;&#124; right_operand |
+| 21         | Any     | =        | Any     | Assigns the right value to the left                    |
 
 ## Conditional Operator
 
 The conditional operator is the only operator which takes three operands:
 
-```
 operand if operand else operand
-```
 
 Where the first operand signifies the value if the second operand is true, otherwise the third operand is the value of the operation.
