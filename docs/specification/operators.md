@@ -68,27 +68,27 @@ For exampe 5 - 10 where - is the operator, 5 and 10 is the operands.
 | 4          | Integer | >>       | Integer | The bitwise left shift operator shifts the left operand in binary representation right operand number of bits to the right |
 | 7          | Integer | &        | Integer | The bitwise and operator returns a one in each bit position for which the corresponding bits of both operands are ones     |
 | 8          | Integer | ^        | Integer | The bitwise xor returns a zero in each bit position for which the corresponding bits are the same                          |
-| 9          | Integer |          |         | Integer                                                                                                                    | The bitwise or returns a zero in each bit position for which the corresponding bits of both operands are zeros |
+| 9          | Integer | &#124;   | Integer | The bitwise or returns a zero in each bit position for which the corresponding bits of both operands are zeros             |
 
 ### Assignment Operators
 
-| precedence | operand | operator | operand | description/equivalent                                 |
-| ---------- | ------- | -------- | ------- | ------------------------------------------------------ |
-| 12         | Number  | \*\*=    | Number  | left_operand = left_operand \*\* right_operand         |
-| 13         | Number  | \*=      | Number  | left_operand = left_operand \* right_operand           |
-| 13         | Number  | /=       | Number  | left_operand = left_operand / right_operand            |
-| 13         | Number  | %=       | Number  | left_operand = left_operand % right_operand            |
-| 14         | String  | +=       | String  | left_operand = left_operand + right_operand            |
-| 14         | Number  | +=       | Number  | left_operand = left_operand + right_operand            |
-| 14         | Number  | -=       | Number  | left_operand = left_operand - right_operand            |
-| 15         | Number  | >>=      | Number  | left_operand = left_operand >> right_operand           |
-| 15         | Number  | <<=      | Number  | left_operand = left_operand << right_operand           |
-| 16         | Number  | &=       | Number  | left_operand = left_operand & right_operand            |
-| 17         | Number  | ^=       | Number  | left_operand = left_operand ^ right_operand            |
-| 18         | Number  | \|=      | Number  | left_operand = left_operand &#124; right_operand       |
-| 19         | Boolean | &&=      | Boolean | left_operand = left_operand && right_operand           |
-| 20         | Boolean | \|\|=    | Boolean | left_operand = left_operand &#124;&#124; right_operand |
-| 21         | Any     | =        | Any     | Assigns the right value to the left                    |
+| precedence | operand | operator      | operand | description/equivalent                                 |
+| ---------- | ------- | ------------- | ------- | ------------------------------------------------------ |
+| 12         | Number  | \*\*=         | Number  | left_operand = left_operand \*\* right_operand         |
+| 13         | Number  | \*=           | Number  | left_operand = left_operand \* right_operand           |
+| 13         | Number  | /=            | Number  | left_operand = left_operand / right_operand            |
+| 13         | Number  | %=            | Number  | left_operand = left_operand % right_operand            |
+| 14         | String  | +=            | String  | left_operand = left_operand + right_operand            |
+| 14         | Number  | +=            | Number  | left_operand = left_operand + right_operand            |
+| 14         | Number  | -=            | Number  | left_operand = left_operand - right_operand            |
+| 15         | Number  | >>=           | Number  | left_operand = left_operand >> right_operand           |
+| 15         | Number  | <<=           | Number  | left_operand = left_operand << right_operand           |
+| 16         | Number  | &=            | Number  | left_operand = left_operand & right_operand            |
+| 17         | Number  | ^=            | Number  | left_operand = left_operand ^ right_operand            |
+| 18         | Number  | &#124;=       | Number  | left_operand = left_operand &#124; right_operand       |
+| 19         | Boolean | &&=           | Boolean | left_operand = left_operand && right_operand           |
+| 20         | Boolean | &#124;&#124;= | Boolean | left_operand = left_operand &#124;&#124; right_operand |
+| 21         | Any     | =             | Any     | Assigns the right value to the left                    |
 
 ## Conditional Operator
 
