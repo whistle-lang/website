@@ -27,7 +27,7 @@ is used. The following table describes all of the used notations in the grammar 
 There are a few predefined values that could not easily be written as valid EBNF, these are instead written with the value of a comment which describes its content.
 
 ```
-unicode_char      = // any Unicode code point except newline
+unicode_any       = // any Unicode code point
 unicode_letter    = // any Unicode code point classified as a "Letter"
 unicode_digit     = // any Unicode code point classified as a "Digit"
 
@@ -52,8 +52,8 @@ Just like whitespace comments get ignored unless it is in a literal that explici
 
 ```
 comment        = comment_line | comment_inline
-comment_line   = "//" , { unicode_char } , "\n"
-comment_inline = "/*" , { unicode_char } , "*/"
+comment_line   = "//" , { unicode_any - "\n" } , "\n"
+comment_inline = "/*" , { unicode_any } , "*/"
 ```
 
 ## Identifiers
@@ -105,30 +105,32 @@ operator_assign    = "="
 Literals in _Whistle_ represent a fixed value.
 
 ```
-literal     = int
-            | float
+literal     = float
+            | int
             | string
             | char
             | bool
             | none
 
-int         = int_decimal
-            | int_binary
+float       = ( digits_decimal , [ "." , digits_decimal ] , [ exponent ] )
+exponent    = ( "e" | "E" ) , [ "+" | "-" ] , digits_decimal
+
+int         = int_binary
             | int_octal
             | int_hex
+            | int_decimal
 int_decimal = digits_decimal
 int_binary  = "0" , ( "b" | "B" ) , digits_binary
 int_octal   = "0" , ( "o" | "O" ) , digits_octal
 int_hex     = "0" , ( "x" | "X" ) , digits_hex
 
-float       = ( digits_decimal , "." , [ digits_decimal ] , [ exponent ] )
-            | ( digits_decimal , exponent )
-            | ( "." , digits_decimal , exponent )
-exponent    = ( "e" | "E" ) , [ "+" | "-" ] , digits_decimal
+string       = "\"" , string_inner , "\"
+string_inner = { unicode_any - ( "\"" | "\\" ) } , [ escape , inner ]
 
-string      = "\"" , { unicode_char - "\"" | "\n" } , "\""
+char        = "'" , ( unicode_any - "\'" ) , "'"
+char_inner  = escape | unicode_any
 
-char        = "'" , ( unicode_char - "\'" | "\n" ) , "'"
+escape      = "\\" , ("\"" | "\\" | "r" | "n" | "t" | "0" | "'")
 
 bool        = "true" | "false"
 
@@ -143,8 +145,8 @@ _Whistle_: line tips and multiline/inline tips.
 
 ```
 tip       = "#(" , ident ,  ")" , ( tip_line | tip_block )
-tip_line  =  { unicode_char } , "\n"
-tip_block = "{" , { unicode_char } , "}"
+tip_line  =  { unicode_any - "\n" } , "\n"
+tip_block = "{" , { unicode_any - "}" } , "}"
 ```
 
 ## Expressions
@@ -157,19 +159,18 @@ Expressions specify the computation of a value by applying operators to an opera
 - Both index and slice array accessing is not ready along with arrays which is why it is commented
 
 ```
-expression      = unary | binary
+expression      = unary | binary | conditional
 
 unary           = primary | ( operator_unary , unary )
 binary          = expression , operator_binary , expression
+conditional     = expression , "if" , expression , "else" , expression
 
 primary         = operand
-                | conditional
                 | ( primary , selector )
                 | ( primary , arguments )
 //              | ( primary , index )
 //              | ( primary , slice )
 
-conditional     = expression , "if" , expression , "else" , expression
 operand         = literal | ident | grouping
 grouping        = "(" , expression , ")"
 selector        = "." , ident
