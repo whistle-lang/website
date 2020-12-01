@@ -4,3 +4,4 @@
 [submodule "playground"]
 	path = playground
 	url = git@github.com:whistle-lang/playground.git
+
