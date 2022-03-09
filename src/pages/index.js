@@ -8,11 +8,11 @@ import styles from "./styles.module.css";
 
 const features = [
   {
-    title: <>Yet another compile to js language</>,
+    title: <>Yet another compile to Web Assembly</>,
     description: (
       <>
-        Yes, it is yet another language that compiles to wasm but threat
-        not for qasm support is planned for the not so distant future!
+        Yes, it is yet another language that compiles to wasm but 
+        with web assembly as the default target. Compilation has never been easier. 
       </>
     ),
   },
