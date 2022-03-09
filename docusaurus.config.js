@@ -3,16 +3,16 @@ module.exports = {
   tagline: "One hella programming language",
   url: "https://whistle-lang.github.io/website",
   baseUrl: "/",
-  favicon: "assets/whistle_transparent_light.png",
-  organizationName: "whistle-lang", // Usually your GitHub org/user name.
-  projectName: "website", // Usually your repo name.
+  favicon: "https://raw.githubusercontent.com/whistle-lang/assets/master/whistle_transparent_light.png",
+  organizationName: "whistle-lang",
+  projectName: "website",
   themeConfig: {
     navbar: {
       title: "Whistle",
       logo: {
         alt: "Whistle Logo",
-        src: "assets/whistle_transparent_dark.svg",
-        srcDark: "assets/whistle_transparent_light.svg",
+        src: "https://raw.githubusercontent.com/whistle-lang/assets/master/whistle_transparent_dark.svg",
+        srcDark: "https://raw.githubusercontent.com/whistle-lang/assets/master/whistle_transparent_light.svg",
       },
       links: [
         {
@@ -72,16 +72,13 @@ module.exports = {
       "@docusaurus/preset-classic",
       {
         docs: {
-          // It is recommended to set document id as docs home page (`docs/` path).
           homePageId: "whistle/introduction",
           sidebarPath: require.resolve("./sidebars.js"),
-          // Please change this to your repo.
           editUrl:
             "https://github.com/whistle-lang/website/edit/master/website/",
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           editUrl:
             "https://github.com/whistle-lang/website/edit/master/website/blog/",
         },

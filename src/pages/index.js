@@ -11,8 +11,8 @@ const features = [
     title: <>Yet another compile to js language</>,
     description: (
       <>
-        Yes, it is yet another language that compiles to javascript but threat
-        not for wasm support is planned for the not so distant future!
+        Yes, it is yet another language that compiles to wasm but threat
+        not for qasm support is planned for the not so distant future!
       </>
     ),
   },
@@ -52,7 +52,7 @@ function Home() {
   return (
     <Layout
       title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />"
+      description="A programming language that compiles to web assembly by default."
     >
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
