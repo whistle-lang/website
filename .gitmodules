@@ -1,0 +1,3 @@
+[submodule "www/static/assets"]
+	path = www/static/assets
+	url = https://github.com/whistle-lang/assets.git
