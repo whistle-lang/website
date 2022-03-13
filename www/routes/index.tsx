@@ -42,10 +42,9 @@ function Hero() {
   const container = tw`w-full h-64 flex justify-center items-center flex-col`;
   const header = tw`max-w-md`;
   const subtitle = tw`max-w-screen-sm mt-4 text(2xl gray-600 center)`;
-
   return (
     <section class={container}>
-      <img class={header} src="assets/whistle_horizontal_dark.svg" />
+      <img class={header} src="https://raw.githubusercontent.com/whistle-lang/assets/main/whistle_horizontal_dark.svg" />
       <p class={subtitle}>
         A statically typed, fast, experimental, compile-to-wasm programming
         language
