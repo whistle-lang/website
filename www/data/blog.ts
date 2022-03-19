@@ -24,7 +24,7 @@ export interface BlogPost {
 export const POSTS: Record<string, BlogPost> = {};
 
 for (const parent in (RAW_POSTS as unknown as RawPosts)) {
-  let { title, short, date, authors, published } =
+  const { title, short, date, authors, published } =
     (RAW_POSTS as unknown as RawPosts)[parent];
   const href = `/blog/${parent}`;
   const file = `blog/${parent}.md`;
