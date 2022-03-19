@@ -12,10 +12,10 @@ export default function NavigationBar(props: { active: string }) {
       name: "Docs",
       href: "/docs",
     },
-    // {
-    //   name: "Blog",
-    //   href: "/blog",
-    // },
+    {
+      name: "Blog",
+      href: "/blog",
+    },
     // {
     //   name: "Playground",
     //   href: "/playground",

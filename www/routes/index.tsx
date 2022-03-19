@@ -44,7 +44,7 @@ function Hero() {
   const subtitle = tw`max-w-screen-sm mt-4 text(2xl gray-600 center)`;
   return (
     <section class={container}>
-      <img class={header} src="https://raw.githubusercontent.com/whistle-lang/assets/main/whistle_horizontal_dark.svg" />
+      <img class={header} src="/whistle_horizontal_dark.svg" />
       <p class={subtitle}>
         A statically typed, fast, experimental, compile-to-wasm programming
         language

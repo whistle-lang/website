@@ -1,3 +1,9 @@
 {
-  
+  "hello_world": {
+    "title": "Hello world!",
+    "short": "This is our first blog post here on the new Whistle blog!",
+    "date": "Sat Mar 19 2022 19:52:53 GMT+0100",
+    "authors": [["Elias Sjögreen", "https://github.com/eliassjogreen/"]],
+    "published": true
+  }
 }
