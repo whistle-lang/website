@@ -1,37 +1,42 @@
 import RAW_POSTS from "../../blog/posts.json" assert { type: "json" };
 
-type RawPosts = Record<string, RawPostEntry>;
+type RawPosts = Record<string, RawBlogPost>;
 
-interface RawPostEntry {
+interface RawBlogPost {
   title: string;
-  date?: Date;
-  authors?: string[];
-  tags?: string[];
+  short: string;
+  date?: string;
+  authors?: (string | [string, string])[];
+  published?: boolean;
 }
 
-export interface PostEntry {
+export interface BlogPost {
   slug: string;
   title: string;
+  short: string;
   date: Date;
-  authors: string[];
-  tags?: string[];
+  authors: (string | [string, string])[];
+  published: boolean;
   href: string;
   file: string;
 }
 
-export const POSTS: Record<string, PostEntry> = {};
+export const POSTS: Record<string, BlogPost> = {};
 
 for (const parent in (RAW_POSTS as unknown as RawPosts)) {
-  const { title, date, authors, tags } =
+  let { title, short, date, authors, published } =
     (RAW_POSTS as unknown as RawPosts)[parent];
   const href = `/blog/${parent}`;
   const file = `blog/${parent}.md`;
+
   const entry = {
     slug: parent,
     title,
-    date: date ?? new Date(),
-    authors: authors ?? ["The Whistle authors"],
-    tags,
+    short,
+    date: date !== undefined ? new Date(date) : new Date(),
+    authors: authors ??
+      [["The Whistle authors", "https://github.com/whistle-lang/"]],
+    published: published ?? false,
     href,
     file,
   };

@@ -3,16 +3,20 @@
 // To update this file, run `fresh manifest`.
 
 import * as $0 from "./routes/_render.ts";
-import * as $1 from "./routes/docs/[...slug].tsx";
-import * as $2 from "./routes/gfm.css.ts";
-import * as $3 from "./routes/index.tsx";
+import * as $1 from "./routes/blog/[...slug].tsx";
+import * as $2 from "./routes/blog/index.tsx";
+import * as $3 from "./routes/docs/[...slug].tsx";
+import * as $4 from "./routes/gfm.css.ts";
+import * as $5 from "./routes/index.tsx";
 
 const manifest = {
   routes: {
     "./routes/_render.ts": $0,
-    "./routes/docs/[...slug].tsx": $1,
-    "./routes/gfm.css.ts": $2,
-    "./routes/index.tsx": $3,
+    "./routes/blog/[...slug].tsx": $1,
+    "./routes/blog/index.tsx": $2,
+    "./routes/docs/[...slug].tsx": $3,
+    "./routes/gfm.css.ts": $4,
+    "./routes/index.tsx": $5,
   },
   islands: {},
   baseUrl: import.meta.url,

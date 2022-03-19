@@ -92,7 +92,7 @@ function Title() {
     <>
       <p class={tw`flex items-center`}>
         <a href="/">
-          <img class={tw`h-12 mx-4`} src="https://raw.githubusercontent.com/whistle-lang/assets/main/whistle_horizontal_dark.svg" />
+          <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
         </a>
       </p>
     </>
