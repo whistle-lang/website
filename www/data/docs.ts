@@ -4,7 +4,11 @@ type RawTableOfContents = Record<string, RawTableOfContentsEntry>;
 
 interface RawTableOfContentsEntry {
   title: string;
-  pages?: [string, string][];
+  pages?: Record<string, RawTableOfContentsPage>;
+}
+
+interface RawTableOfContentsPage {
+  title: string;
 }
 
 export interface TableOfContentsEntry {
@@ -47,8 +51,9 @@ for (const parent in (RAW_TOC as unknown as RawTableOfContents)) {
   };
   CATEGORIES.push(category);
   if (rawEntry.pages) {
-    for (const [id, title] of rawEntry.pages) {
-      const slug = `${parent}/${id}`;
+    for (const page in rawEntry.pages) {
+      const { title } = rawEntry.pages[page];
+      const slug = `${parent}/${page}`;
       const href = `/docs/${slug}`;
       const file = `docs/${slug}.md`;
       const entry = { slug, title, category: parent, href, file };
