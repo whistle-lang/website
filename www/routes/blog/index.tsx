@@ -25,19 +25,15 @@ export default function Index() {
 
 function Main() {
   return (
-    <>
-      <div>
-        <main class={tw`max-w-screen-md px-4 py-8 mx-auto`}>
-          <h1 class={tw`text-5xl font-bold`}>Blog</h1>
-          <div class={tw`mt-8`}>
-            {Object.values(POSTS)
-              .filter((post) => post.published)
-              .sort((a, b) => b.date.getTime() - a.date.getTime())
-              .map((post) => <BlogEntry entry={post} />)}
-          </div>
-        </main>
+    <main class={tw`w-full max-w-screen-md px-4 py-8 mx-auto`}>
+      <h1 class={tw`text-5xl font-bold`}>Blog</h1>
+      <div class={tw`mt-8`}>
+        {Object.values(POSTS)
+          .filter((post) => post.published)
+          .sort((a, b) => b.date.getTime() - a.date.getTime())
+          .map((post) => <BlogEntry entry={post} />)}
       </div>
-    </>
+    </main>
   );
 }
 

@@ -62,38 +62,34 @@ function Main(
   },
 ) {
   return (
-    <>
-      <div>
-        <article class={tw`max-w-screen-md px-4 py-8 mx-auto`}>
-          <h1 class={tw`text-5xl font-bold`}>{title}</h1>
-          <div class={tw`mt-4 text-gray-500`}>
-            <p>{new Intl.DateTimeFormat().format(date)}</p>
-            <p>
-              {authors.map((author, index) => {
-                return (
-                  <>
-                    {index > 0 && ", "}
-                    {typeof author !== "string"
-                      ? (
-                        <a href={author[1]} class={tw`hover:underline`}>
-                          {author[0]}
-                        </a>
-                      )
-                      : author}
-                  </>
-                );
-              })}
-            </p>
-          </div>
-          <hr class={tw`my-8`} />
-          <div class={tw`mt-8`}>
-            <div
-              class={`${tw`mt-6`} markdown-body`}
-              dangerouslySetInnerHTML={{ __html: gfm.render(markdown) }}
-            />
-          </div>
-        </article>
+    <article class={tw`w-full max-w-screen-md px-4 py-8 mx-auto`}>
+      <h1 class={tw`text-5xl font-bold`}>{title}</h1>
+      <div class={tw`mt-4 text-gray-500`}>
+        <p>{new Intl.DateTimeFormat().format(date)}</p>
+        <p>
+          {authors.map((author, index) => {
+            return (
+              <>
+                {index > 0 && ", "}
+                {typeof author !== "string"
+                  ? (
+                    <a href={author[1]} class={tw`hover:underline`}>
+                      {author[0]}
+                    </a>
+                  )
+                  : author}
+              </>
+            );
+          })}
+        </p>
       </div>
-    </>
+      <hr class={tw`my-8`} />
+      <div class={tw`mt-8`}>
+        <div
+          class={`${tw`mt-6`} markdown-body`}
+          dangerouslySetInnerHTML={{ __html: gfm.render(markdown) }}
+        />
+      </div>
+    </article>
   );
 }
