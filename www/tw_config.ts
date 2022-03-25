@@ -1,8 +1,23 @@
+import { colors } from "./client_deps.ts";
 import type { Plugin, ThemeConfiguration } from "./client_deps.ts";
 
-export const theme: ThemeConfiguration = {} as const;
+export const theme: ThemeConfiguration = {
+  "extend": {
+    "colors": {
+      colors,
+      "dark": {
+        "background": "#343a40",
+        "navy": "#1c2834",
+      },
+      "light": {
+        "background": "#fcfcfc",
+      },
+    },
+  },
+} as const;
 
 export const plugins: Record<string, Plugin | undefined> = {
+  "darkMode": "class",
   "grow": { "flex-grow": "1" },
   "snap": {
     "start": { "scroll-snap-align": "start" },
@@ -12,7 +27,7 @@ export const plugins: Record<string, Plugin | undefined> = {
 
     "normal": { "scroll-snap-stop": "normal" },
     "always": { "scroll-snap-stop": "always" },
-    
+
     "none": { "scroll-snap-type": "none" },
     "x": {
       "@defaults scroll-snap-type": {},

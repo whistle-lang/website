@@ -6,6 +6,7 @@ import {
   ThemeConfiguration,
   tw,
 } from "https://esm.sh/twind@0.16.16";
+export * as colors from "https://cdn.esm.sh/v73/twind@0.16.16/es2021/colors.js";
 import * as config from "./tw_config.ts";
 
 export * from "https://raw.githubusercontent.com/lucacasonato/fresh/main/runtime.ts";
