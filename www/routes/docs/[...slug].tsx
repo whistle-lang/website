@@ -47,7 +47,7 @@ export default function DocsPage(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>{props.data.page?.title ?? "Not Found"} | Whistle docs</title>
+        <title>{props.data.page?.title ?? "Not Found"} - Whistle Docs</title>
         <link rel="stylesheet" href="/gfm.css" />
       </Head>
       <Header />

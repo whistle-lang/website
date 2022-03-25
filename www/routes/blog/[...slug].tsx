@@ -1,9 +1,10 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 
-import { apply, Fragment, h, Head, PageProps, tw } from "../../client_deps.ts";
+import { Fragment, h, Head, PageProps, tw } from "../../client_deps.ts";
 import { gfm, Handlers } from "../../server_deps.ts";
 import Footer from "../../components/Footer.tsx";
+import Header from "../../components/Header.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
 import { BlogPost, POSTS } from "../../data/blog.ts";
 
@@ -42,35 +43,13 @@ export default function BlogPage(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>Whistle blog</title>
+        <title>{props.data.page.title} - Whistle Blog</title>
         <link rel="stylesheet" href="/gfm.css" />
       </Head>
       <Header />
       <NavigationBar active="/blog" />
       <Main page={props.data.page} />
       <Footer />
-    </>
-  );
-}
-
-function Header() {
-  return (
-    <header class={tw`mx-auto max-w-screen-lg flex gap-3 justify-between`}>
-      <div class={tw`p-4`}>
-        <Title />
-      </div>
-    </header>
-  );
-}
-
-function Title() {
-  return (
-    <>
-      <p class={tw`flex items-center`}>
-        <a href="/">
-          <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
-        </a>
-      </p>
     </>
   );
 }
