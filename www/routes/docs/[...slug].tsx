@@ -6,6 +6,7 @@ import { gfm, Handlers } from "../../server_deps.ts";
 import DocsSidebar from "../../components/DocsSidebar.tsx";
 import Footer from "../../components/Footer.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
+import { IconWhistle } from "../../components/Icons.tsx";
 import {
   SLUGS,
   TABLE_OF_CONTENTS,
@@ -50,24 +51,29 @@ export default function DocsPage(props: PageProps<Data>) {
         <title>{props.data.page?.title ?? "Not Found"} - Whistle Docs</title>
         <link rel="stylesheet" href="/gfm.css" />
       </Head>
-      <Header />
-      <NavigationBar active="/docs" />
-      <Main path={props.url.pathname} page={props.data.page} />
+      <div class={tw`min-h-screen`}>
+        <div class={tw`flex flex-col`}>
+          <Header />
+          <NavigationBar active="/docs" />
+        </div>
+        <Main path={props.url.pathname} page={props.data.page} />
+      </div>
       <Footer />
     </>
   );
 }
 
 function Header() {
-  const header = tw`mx-auto max-w-screen-lg flex gap-3 justify-between`;
-  const sidebarButton = tw
-    `px-4 py-4 md:hidden border(l-2 gray-100) flex items-center hover:bg-gray-50`;
   return (
-    <header class={header}>
+    <header class={tw`md:mx-auto max-w-screen-lg flex gap-3 justify-between`}>
       <div class={tw`p-4`}>
-        <Title />
+        <IconWhistle />
       </div>
-      <label for="docs_sidebar" class={sidebarButton}>
+      <label
+        for="docs_sidebar"
+        class={tw
+          `px-4 py-4 md:hidden border(l-2 gray-100) flex items-center hover:bg-gray-50`}
+      >
         <svg
           class={tw`h-6 w-6`}
           stroke="currentColor"
@@ -84,18 +90,6 @@ function Header() {
         </svg>
       </label>
     </header>
-  );
-}
-
-function Title() {
-  return (
-    <>
-      <p class={tw`flex items-center`}>
-        <a href="/">
-          <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
-        </a>
-      </p>
-    </>
   );
 }
 
@@ -132,7 +126,7 @@ function MobileSidebar(props: { path: string }) {
         <label class={backdrop} for="docs_sidebar" />
         <div class={sidebar}>
           <div class={heading}>
-            <Title />
+            <IconWhistle />
           </div>
           <nav class={items}>
             <DocsSidebar path={props.path} />

@@ -13,11 +13,13 @@ export const theme: ThemeConfiguration = {
         "background": "#fcfcfc",
       },
     },
+    "minHeight": {
+      "96": "24rem",
+    },
   },
 } as const;
 
 export const plugins: Record<string, Plugin | undefined> = {
-  "darkMode": "class",
   "grow": { "flex-grow": "1" },
   "snap": {
     "start": { "scroll-snap-align": "start" },

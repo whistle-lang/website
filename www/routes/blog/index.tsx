@@ -13,9 +13,11 @@ export default function Index() {
       <Head>
         <title>Whistle Blog</title>
       </Head>
-      <Header />
-      <NavigationBar active="/blog" />
-      <Main />
+      <div class={tw`min-h-screen flex flex-col`}>
+        <Header />
+        <NavigationBar active="/blog" />
+        <Main />
+      </div>
       <Footer />
     </>
   );

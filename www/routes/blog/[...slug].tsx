@@ -46,9 +46,11 @@ export default function BlogPage(props: PageProps<Data>) {
         <title>{props.data.page.title} - Whistle Blog</title>
         <link rel="stylesheet" href="/gfm.css" />
       </Head>
-      <Header />
-      <NavigationBar active="/blog" />
-      <Main page={props.data.page} />
+      <div class={tw`min-h-screen flex flex-col`}>
+        <Header />
+        <NavigationBar active="/blog" />
+        <Main page={props.data.page} />
+      </div>
       <Footer />
     </>
   );
