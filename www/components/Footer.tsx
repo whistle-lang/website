@@ -7,6 +7,10 @@ const LINKS = [
     title: "Source",
     href: "https://github.com/whistle-lang",
   },
+  {
+    title: "Discord",
+    href: "https://discord.gg/hdKxd5x"
+  }
 ];
 
 export default function Footer() {

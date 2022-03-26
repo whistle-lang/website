@@ -2,42 +2,26 @@
 
 import { h, tw } from "../client_deps.ts";
 
-export function IconMinus() {
+export function IconWhistle() {
   return (
-    <svg
-      class={tw`h-6 w-6`}
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      aria-hidden="true"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M20 12H4"
-      />
-    </svg>
+    <p class={tw`flex items-center`}>
+      <a href="/">
+        <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
+      </a>
+    </p>
   );
 }
 
-export function IconPlus() {
+export function IconChevron({ ...props }) {
   return (
     <svg
-      class={tw`h-6 w-6`}
+      {...props}
+      viewBox="6 8 12 8"
       xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
+      fill="currentColor"
       aria-hidden="true"
     >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-      />
+      <path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path>
     </svg>
   );
 }

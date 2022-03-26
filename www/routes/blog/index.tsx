@@ -3,6 +3,7 @@
 
 import { Fragment, h, Head, tw } from "../../client_deps.ts";
 import Footer from "../../components/Footer.tsx";
+import Header from "../../components/Header.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
 import { BlogPost, POSTS } from "../../data/blog.ts";
 
@@ -10,53 +11,29 @@ export default function Index() {
   return (
     <>
       <Head>
-        <title>Whistle blog</title>
+        <title>Whistle Blog</title>
       </Head>
-      <Header />
-      <NavigationBar active="/blog" />
-      <Main />
-      <Footer />
-    </>
-  );
-}
-
-function Header() {
-  return (
-    <header class={tw`mx-auto max-w-screen-lg flex gap-3 justify-between`}>
-      <div class={tw`p-4`}>
-        <Title />
+      <div class={tw`min-h-screen flex flex-col`}>
+        <Header />
+        <NavigationBar active="/blog" />
+        <Main />
       </div>
-    </header>
-  );
-}
-
-function Title() {
-  return (
-    <>
-      <p class={tw`flex items-center`}>
-        <a href="/">
-          <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
-        </a>
-      </p>
+      <Footer />
     </>
   );
 }
 
 function Main() {
   return (
-    <>
-      <div>
-        <main class={tw`max-w-screen-md px-4 py-8 mx-auto`}>
-          <h1 class={tw`text-5xl font-bold`}>Blog</h1>
-          <div class={tw`mt-8`}>
-            {Object.values(POSTS)
-              .filter((post) => post.published)
-              .sort((a, b) => b.date.getTime() - a.date.getTime())
-              .map((post) => <BlogEntry entry={post} />)}
-          </div>
-        </main>
+    <main class={tw`w-full max-w-screen-md px-4 py-8 mx-auto`}>
+      <h1 class={tw`text-5xl font-bold`}>Blog</h1>
+      <div class={tw`mt-8`}>
+        {Object.values(POSTS)
+          .filter((post) => post.published)
+          .sort((a, b) => b.date.getTime() - a.date.getTime())
+          .map((post) => <BlogEntry entry={post} />)}
       </div>
-    </>
+    </main>
   );
 }
 

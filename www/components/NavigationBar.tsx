@@ -16,10 +16,10 @@ export default function NavigationBar(props: { active: string }) {
       name: "Blog",
       href: "/blog",
     },
-    // {
-    //   name: "Playground",
-    //   href: "/playground",
-    // },
+    {
+      name: "Playground",
+      href: "/playground",
+    },
   ];
 
   return (
