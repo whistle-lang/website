@@ -2,53 +2,86 @@
 /** @jsxFrag Fragment */
 
 import {
+  Component,
   Fragment,
   h,
+  load,
+  Monaco,
   MonacoEditor,
+  Ref,
   tw,
-  useMemo,
+  useEffect,
   useRef,
   useState,
+  wabt as loadWabt,
 } from "../client_deps.ts";
 import { IconChevron } from "../components/Icons.tsx";
 import { WhistleLanguageDef } from "../data/playground.ts";
 
-export default function Playground() {
-  return (
-    <div
-      class={tw
-        `h-full w-full min-h-96 grow flex flex-col rounded-lg bg-gray-50 border-1`}
-    >
-      <TopBar />
-      <Panels />
-    </div>
-  );
-}
+export default class Playground extends Component {
+  // deno-lint-ignore no-explicit-any
+  wabt!: any;
 
-function TopBar() {
-  const options = [
-    {
-      name: "WebAssembly",
-    },
-    {
-      name: "Tokens",
-    },
-    {
-      name: "AST",
-    },
-  ];
+  async componentDidMount() {
+    await load();
+    const wabt = await loadWabt();
 
-  return (
-    <ul class={tw`flex gap-8 py-2 px-4 bg-gray-50 border-b-1`}>
-      <TopBarButton onClick={() => console.log(123)}>Run</TopBarButton>
-      <div class={tw`ml-auto pl-4`}>
-        <TopBarDropdown
-          options={options}
-          onSelected={(option) => console.log(option)}
-        />
+    this.setState({ wabt });
+  }
+
+  run() {
+  }
+
+  // deno-lint-ignore no-empty-pattern no-explicit-any
+  render({}, { wabt }: { wabt: any }) {
+    const options = [
+      {
+        name: "WebAssembly",
+        display: () => {
+          if (textRef.current) {
+            textRef.current.innerText = "wasm2wat";
+          }
+        },
+      },
+      {
+        name: "Lexer Tokens",
+        display: () => {
+          if (textRef.current) {
+            textRef.current.innerText = "tokens";
+          }
+        },
+      },
+      {
+        name: "Abstract Syntax Tree",
+        display: () => {
+          if (textRef.current) {
+            textRef.current.innerText = "ast";
+          }
+        },
+      },
+    ];
+    const editorRef = useRef<HTMLDivElement>(null);
+    const textRef = useRef<HTMLDivElement>(null);
+    const logsRef = useRef<HTMLDivElement>(null);
+
+    return (
+      <div
+        class={tw
+          `h-full w-full min-h-96 grow flex flex-col rounded-lg bg-gray-50 border-1`}
+      >
+        <ul class={tw`flex gap-8 py-2 px-4 bg-gray-50 border-b-1`}>
+          <TopBarButton onClick={this.run}>Run</TopBarButton>
+          <div class={tw`ml-auto pl-4`}>
+            <TopBarDropdown
+              options={options}
+              onSelected={(option) => option.display()}
+            />
+          </div>
+        </ul>
+        <Panels textRef={textRef} logsRef={logsRef} />
       </div>
-    </ul>
-  );
+    );
+  }
 }
 
 function TopBarButton(
@@ -125,8 +158,7 @@ function TopBarDropdown<T extends { name: string }[]>(
   );
 }
 
-function Panels() {
-  const monacoRef = useRef(null);
+function Panels({ monacoRef, textRef, logsRef }: { monacoRef?: MutableRef<Monaco>; textRef?: Ref<HTMLDivElement>; logsRef?: Ref<HTMLDivElement> }) {
   // deno-lint-ignore no-explicit-any
   const handleEditorWillMount = (monaco: any) => {
     monaco.languages.register({
@@ -145,18 +177,15 @@ function Panels() {
           beforeMount={handleEditorWillMount}
           onMount={handleEditorDidMount}
           defaultLanguage="whistle"
-          theme={window.matchMedia &&
-              window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "vs-dark"
-            : "light"}
+          theme={localStorage.theme === "dark" ? "vs-dark" : "light"}
         />
       </div>
 
       <div class={tw`grid grid-rows-2`}>
-        <div class={tw`w-full border-b-1`}>
+        <div class={tw`w-full border-b-1`} ref={textRef}>
         </div>
 
-        <div class={tw`w-full`}>
+        <div class={tw`w-full`} ref={logsRef}>
         </div>
       </div>
     </div>
