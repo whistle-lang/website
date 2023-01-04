@@ -10,7 +10,7 @@ import {
 import MonacoEditor from "../components/Editor.tsx";
 
 import { IconChevron } from "../components/Icons.tsx";
-import { WhistleLanguageDef } from "../data/playground.ts";
+import { WhistleLanguageDef, WatDefinitions } from "../data/playground.ts";
 
 export default class Playground extends Component {
   wabt!: any;
@@ -135,10 +135,10 @@ function Panels(
     monaco.languages.setMonarchTokensProvider("whistle", WhistleLanguageDef);
   };
   const handleOutputWillMount = (monaco: any) => {
-    // monaco.languages.register({
-    //   id: "whistle",
-    // });
-    // monaco.languages.setMonarchTokensProvider("whistle", WhistleLanguageDef);
+    monaco.languages.register({
+      id: "wat",
+    });
+    monaco.languages.setMonarchTokensProvider("wat", WatDefinitions);
   };
   const handleEditorDidMount = (editor: any, monaco: any) => {
     if (monacoRef) monacoRef.current = editor;

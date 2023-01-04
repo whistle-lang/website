@@ -24,6 +24,9 @@ export default function Index() {
             Whistle is a programming language that compiles to web assembly by default and is tiny enough to be embedded into your application.
             Beware! Whistle is not stable and will change in the near future.
           </p>
+          <p className="font-bold text(center 2xl) pt-10">
+            Try Whistle in your browser
+          </p>
           <Playground />
         </div>
       </div>
