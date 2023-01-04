@@ -1,11 +1,8 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-
-import { Fragment, h, Head, tw } from "../../client_deps.ts";
 import Footer from "../../components/Footer.tsx";
 import Header from "../../components/Header.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
 import { BlogPost, POSTS } from "../../data/blog.ts";
+import { Head } from "$fresh/runtime.ts";
 
 export default function Index() {
   return (
@@ -13,7 +10,7 @@ export default function Index() {
       <Head>
         <title>Whistle Blog</title>
       </Head>
-      <div class={tw`min-h-screen flex flex-col`}>
+      <div class={`min-h-screen flex flex-col`}>
         <Header />
         <NavigationBar active="/blog" />
         <Main />
@@ -25,9 +22,9 @@ export default function Index() {
 
 function Main() {
   return (
-    <main class={tw`w-full max-w-screen-md px-4 py-8 mx-auto`}>
-      <h1 class={tw`text-5xl font-bold`}>Blog</h1>
-      <div class={tw`mt-8`}>
+    <main class={`w-full max-w-screen-md px-4 py-8 mx-auto`}>
+      <h1 class={`text-5xl font-bold`}>Blog</h1>
+      <div class={`mt-8`}>
         {Object.values(POSTS)
           .filter((post) => post.published)
           .sort((a, b) => b.date.getTime() - a.date.getTime())
@@ -43,8 +40,8 @@ function BlogEntry(
   },
 ) {
   return (
-    <div class={tw`py-8 border-t border-gray-200 grid sm:grid-cols-3 gap-2`}>
-      <div class={tw`w-56 text-gray-500`}>
+    <div class={`py-8 border-t border-gray-200 grid sm:grid-cols-3 gap-2`}>
+      <div class={`w-56 text-gray-500`}>
         <p>{new Intl.DateTimeFormat().format(date)}</p>
         <p>
           {authors.map((author, index) => {
@@ -53,7 +50,7 @@ function BlogEntry(
                 {index > 0 && ", "}
                 {typeof author !== "string"
                   ? (
-                    <a href={author[1]} class={tw`hover:underline`}>
+                    <a href={author[1]} class={`hover:underline`}>
                       {author[0]}
                     </a>
                   )
@@ -63,9 +60,9 @@ function BlogEntry(
           })}
         </p>
       </div>
-      <a class={tw`sm:col-span-2`} href={href}>
-        <h3 class={tw`text-2xl text-gray-900 font-bold`}>{title}</h3>
-        <div class={tw`mt-4 text-gray-900`}>{short}</div>
+      <a class={`sm:col-span-2`} href={href}>
+        <h3 class={`text-2xl text-gray-900 font-bold`}>{title}</h3>
+        <div class={`mt-4 text-gray-900`}>{short}</div>
       </a>
     </div>
   );

@@ -1,12 +1,8 @@
-/** @jsx h */
-
-import { h, tw } from "../client_deps.ts";
-
 export function IconWhistle() {
   return (
-    <p class={tw`flex items-center`}>
+    <p class={`flex items-center`}>
       <a href="/">
-        <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
+        <img class={`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
       </a>
     </p>
   );

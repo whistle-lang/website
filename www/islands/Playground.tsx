@@ -1,84 +1,52 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-
+// deno-lint-ignore-file no-explicit-any
+import { MutableRef, useRef, useState } from "preact/hooks";
+import { Component, h } from "preact";
 import {
-  Component,
-  Fragment,
-  h,
+  compile,
   load,
-  Monaco,
-  MonacoEditor,
-  Ref,
-  tw,
-  useEffect,
-  useRef,
-  useState,
   wabt as loadWabt,
 } from "../client_deps.ts";
+
+import MonacoEditor from "../components/Editor.tsx";
+
 import { IconChevron } from "../components/Icons.tsx";
 import { WhistleLanguageDef } from "../data/playground.ts";
 
 export default class Playground extends Component {
-  // deno-lint-ignore no-explicit-any
   wabt!: any;
 
   async componentDidMount() {
     await load();
     const wabt = await loadWabt();
-
-    this.setState({ wabt });
+    this.wabt = wabt;
   }
 
-  run() {
+  run(editorRef: MutableRef<any>, textRef: MutableRef<any>) {
+    const module = compile(editorRef.current!.getValue());
+    textRef.current!.setValue(
+      this.wabt.readWasm(module, {}).toText({
+        foldExprs: true,
+        inlineExport: true,
+      }),
+    );
   }
 
-  // deno-lint-ignore no-empty-pattern no-explicit-any
-  render({}, { wabt }: { wabt: any }) {
-    const options = [
-      {
-        name: "WebAssembly",
-        display: () => {
-          if (textRef.current) {
-            textRef.current.innerText = "wasm2wat";
-          }
-        },
-      },
-      {
-        name: "Lexer Tokens",
-        display: () => {
-          if (textRef.current) {
-            textRef.current.innerText = "tokens";
-          }
-        },
-      },
-      {
-        name: "Abstract Syntax Tree",
-        display: () => {
-          if (textRef.current) {
-            textRef.current.innerText = "ast";
-          }
-        },
-      },
-    ];
-    const editorRef = useRef<HTMLDivElement>(null);
-    const textRef = useRef<HTMLDivElement>(null);
-    const logsRef = useRef<HTMLDivElement>(null);
+  render() {
+    const editorRef = useRef<any>(null);
+    const textRef = useRef<any>(null);
 
     return (
       <div
-        class={tw
-          `h-full w-full min-h-96 grow flex flex-col rounded-lg bg-gray-50 border-1`}
+        class={`h-full w-full min-h-[24rem] flex-grow-1 flex flex-col rounded-lg bg-gray-50 border-1`}
       >
-        <ul class={tw`flex gap-8 py-2 px-4 bg-gray-50 border-b-1`}>
-          <TopBarButton onClick={this.run}>Run</TopBarButton>
-          <div class={tw`ml-auto pl-4`}>
-            <TopBarDropdown
-              options={options}
-              onSelected={(option) => option.display()}
-            />
+        <ul class={`flex gap-8 py-2 px-4 bg-gray-50 border-b-1`}>
+          <TopBarButton onClick={() => this.run(editorRef, textRef)}>
+            Run
+          </TopBarButton>
+          <div class={`ml-auto pl-4`}>
           </div>
         </ul>
-        <Panels textRef={textRef} logsRef={logsRef} />
+        <Panels monacoRef={editorRef} textRef={textRef} />
       </div>
     );
   }
@@ -92,8 +60,7 @@ function TopBarButton(
 ) {
   return (
     <li
-      class={tw
-        `cursor-pointer py-1 px-2 border border-gray-300 font-medium rounded-md text-gray-700 bg-gray-50 transition duration-150 ease-in-out select-none hover:text-gray-500 hover:bg-gray-50 active:bg-gray-100 active:text-gray-700 focus:outline-none focus:shadow focus:border-blue-300`}
+      class={`cursor-pointer py-1 px-2 border border-gray-300 font-medium rounded-md text-gray-700 bg-gray-50 transition duration-150 ease-in-out select-none hover:text-gray-500 hover:bg-gray-50 active:bg-gray-100 active:text-gray-700 focus:outline-none focus:shadow focus:border-blue-300`}
       onClick={onClick}
     >
       {children}
@@ -120,26 +87,23 @@ function TopBarDropdown<T extends { name: string }[]>(
   };
 
   return (
-    <div class={tw`w-64 relative inline-block text-left`}>
+    <div class={`w-64 relative inline-block text-left`}>
       <div
-        class={tw
-          `w-full cursor-pointer inline-flex justify-center py-1 px-2 border border-gray-300 font-medium rounded-md text-gray-700 bg-gray-50 transition duration-150 ease-in-out select-none hover:text-gray-500 hover:bg-gray-50 active:bg-gray-100 active:text-gray-700 focus:outline-none focus:shadow focus:border-blue-300`}
+        class={`w-full cursor-pointer inline-flex justify-center py-1 px-2 border border-gray-300 font-medium rounded-md text-gray-700 bg-gray-50 transition duration-150 ease-in-out select-none hover:text-gray-500 hover:bg-gray-50 active:bg-gray-100 active:text-gray-700 focus:outline-none focus:shadow focus:border-blue-300`}
         onClick={toggleDropdown}
       >
         {selected.name}
-        <IconChevron class={tw`mt-auto mb-auto mr-1 ml-2 w-3 h-3`} />
+        <IconChevron class={`mt-auto mb-auto mr-1 ml-2 w-3 h-3`} />
       </div>
 
       <ul
-        class={tw
-          `select-none origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-gray-50 ring-1 ring-black ring-opacity-5 focus:outline-none`}
+        class={`select-none origin-top-right absolute right-0 mt-2 w-full rounded-md shadow-lg bg-gray-50 ring-1 ring-black ring-opacity-5 focus:outline-none`}
         hidden
         ref={dropdown}
       >
         {options.map((option) => (
           <li
-            class={tw
-              `cursor-pointer text-gray-700 block w-full text-left px-4 py-2 active:bg-gray-100 active:text-gray-700 hover:text-gray-500 hover:bg-gray-100`}
+            class={`cursor-pointer text-gray-700 block w-full text-left px-4 py-2 active:bg-gray-100 active:text-gray-700 hover:text-gray-500 hover:bg-gray-100`}
             onClick={() => {
               setSelected(option);
               onSelected?.(
@@ -158,35 +122,69 @@ function TopBarDropdown<T extends { name: string }[]>(
   );
 }
 
-function Panels({ monacoRef, textRef, logsRef }: { monacoRef?: MutableRef<Monaco>; textRef?: Ref<HTMLDivElement>; logsRef?: Ref<HTMLDivElement> }) {
-  // deno-lint-ignore no-explicit-any
+function Panels(
+  { monacoRef, textRef }: {
+    monacoRef?: MutableRef<any>;
+    textRef?: MutableRef<any>;
+  },
+) {
   const handleEditorWillMount = (monaco: any) => {
     monaco.languages.register({
       id: "whistle",
     });
     monaco.languages.setMonarchTokensProvider("whistle", WhistleLanguageDef);
   };
-  // deno-lint-ignore no-explicit-any
+  const handleOutputWillMount = (monaco: any) => {
+    // monaco.languages.register({
+    //   id: "whistle",
+    // });
+    // monaco.languages.setMonarchTokensProvider("whistle", WhistleLanguageDef);
+  };
   const handleEditorDidMount = (editor: any, monaco: any) => {
-    monacoRef.current = editor;
+    if (monacoRef) monacoRef.current = editor;
+  };
+  const handleOutputDidMount = (editor: any, monaco: any) => {
+    if (textRef) textRef.current = editor;
+  };
+  const editorOptions = {
+    contextmenu: false,
+    overviewRulerBorder: false,
+    lineDecorationsWidth: 0,
+    lineNumbersMinChars: 3,
+    minimap: {
+      enabled: false,
+    },
+  };
+  const outputOptions = {
+    contextmenu: false,
+    readOnly: true,
+    lineNumbers: false,
+    lineDecorationsWidth: 0,
+    minimap: {
+      enabled: false,
+    },
   };
   return (
-    <div class={tw`grow grid grid-cols-2 bg-white`}>
-      <div class={tw`border-r-1`}>
+    <div class={`flex-grow-1 grid grid-cols-2 bg-white `}>
+      <div class={`border-r-1 h(full md:auto)`}>
         <MonacoEditor
           beforeMount={handleEditorWillMount}
           onMount={handleEditorDidMount}
+          options={editorOptions}
           defaultLanguage="whistle"
-          theme={localStorage.theme === "dark" ? "vs-dark" : "light"}
+          defaultValue={`export fn add(a: i32, b: i32): i32 {\n  return a + b\n}`}
+          theme={"vs-light"}
         />
       </div>
 
-      <div class={tw`grid grid-rows-2`}>
-        <div class={tw`w-full border-b-1`} ref={textRef}>
-        </div>
-
-        <div class={tw`w-full`} ref={logsRef}>
-        </div>
+      <div class={`w-full border-b-1 h(screen md:auto) `}>
+        <MonacoEditor
+          beforeMount={handleOutputWillMount}
+          onMount={handleOutputDidMount}
+          options={outputOptions}
+          defaultLanguage="wat"
+          theme={"vs-light"}
+        />
       </div>
     </div>
   );

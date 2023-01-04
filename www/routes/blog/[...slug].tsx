@@ -1,12 +1,11 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-
-import { Fragment, h, Head, PageProps, tw } from "../../client_deps.ts";
-import { gfm, Handlers } from "../../server_deps.ts";
+import { gfm} from "../../server_deps.ts";
 import Footer from "../../components/Footer.tsx";
 import Header from "../../components/Header.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
 import { BlogPost, POSTS } from "../../data/blog.ts";
+import { Head } from "$fresh/runtime.ts";
+import { PageProps, Handlers } from "$fresh/server.ts";
+
 
 interface Data {
   page: Page;
@@ -46,7 +45,7 @@ export default function BlogPage(props: PageProps<Data>) {
         <title>{props.data.page.title} - Whistle Blog</title>
         <link rel="stylesheet" href="/gfm.css" />
       </Head>
-      <div class={tw`min-h-screen flex flex-col`}>
+      <div class={`min-h-screen flex flex-col`}>
         <Header />
         <NavigationBar active="/blog" />
         <Main page={props.data.page} />
@@ -62,9 +61,9 @@ function Main(
   },
 ) {
   return (
-    <article class={tw`w-full max-w-screen-md px-4 py-8 mx-auto`}>
-      <h1 class={tw`text-5xl font-bold`}>{title}</h1>
-      <div class={tw`mt-4 text-gray-500`}>
+    <article class={`w-full max-w-screen-md px-4 py-8 mx-auto`}>
+      <h1 class={`text-5xl font-bold`}>{title}</h1>
+      <div class={`mt-4 text-gray-500`}>
         <p>{new Intl.DateTimeFormat().format(date)}</p>
         <p>
           {authors.map((author, index) => {
@@ -73,7 +72,7 @@ function Main(
                 {index > 0 && ", "}
                 {typeof author !== "string"
                   ? (
-                    <a href={author[1]} class={tw`hover:underline`}>
+                    <a href={author[1]} class={`hover:underline`}>
                       {author[0]}
                     </a>
                   )
@@ -83,10 +82,10 @@ function Main(
           })}
         </p>
       </div>
-      <hr class={tw`my-8`} />
-      <div class={tw`mt-8`}>
+      <hr class={`my-8`} />
+      <div class={`mt-8`}>
         <div
-          class={`${tw`mt-6`} markdown-body`}
+          class={`${`mt-6`} ${"markdown-body"}`}
           dangerouslySetInnerHTML={{ __html: gfm.render(markdown) }}
         />
       </div>
