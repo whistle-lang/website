@@ -1,11 +1,10 @@
-import { gfm} from "../../server_deps.ts";
+import { gfm } from "../../server_deps.ts";
 import Footer from "../../components/Footer.tsx";
 import Header from "../../components/Header.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
 import { BlogPost, POSTS } from "../../data/blog.ts";
 import { Head } from "$fresh/runtime.ts";
-import { PageProps, Handlers } from "$fresh/server.ts";
-
+import { Handlers, PageProps } from "$fresh/server.ts";
 
 interface Data {
   page: Page;

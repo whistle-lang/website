@@ -1,4 +1,4 @@
-import { PageProps, Handlers } from "$fresh/server.ts";
+import { Handlers, PageProps } from "$fresh/server.ts";
 import { Head } from "$fresh/runtime.ts";
 
 import { gfm } from "../../server_deps.ts";
@@ -70,8 +70,7 @@ function Header() {
       </div>
       <label
         for="docs_sidebar"
-        class={
-          `px-4 py-4 md:hidden border(l-2 gray-100) flex items-center hover:bg-gray-50`}
+        class={`px-4 py-4 md:hidden border(l-2 gray-100) flex items-center hover:bg-gray-50`}
       >
         <svg
           class={`h-6 w-6`}
@@ -108,7 +107,7 @@ function Main(props: { path: string; page: Page }) {
 function MobileSidebar(props: { path: string }) {
   const container = `fixed inset-0 flex z-40 hidden` + " toggled";
   const backdrop = `absolute inset-0 bg-gray-600 opacity-75`;
-  const sidebar = 
+  const sidebar =
     `relative flex-1 flex flex-col w-[16rem] h-full bg-white border(r-2 gray-100)`;
   const heading = `p-4 border(b-2 gray-100)`;
   const items = `pt-2 pb-16 px-4 overflow-x-auto`;
@@ -139,8 +138,7 @@ function MobileSidebar(props: { path: string }) {
 function DesktopSidebar(props: { path: string }) {
   return (
     <nav
-      class={
-        `w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)`}
+      class={`w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)`}
     >
       <DocsSidebar path={props.path} />
     </nav>

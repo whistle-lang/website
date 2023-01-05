@@ -1,16 +1,13 @@
 // deno-lint-ignore-file no-explicit-any
 import { MutableRef, useRef, useState } from "preact/hooks";
 import { Component, h } from "preact";
-import {
-  compile,
-  load,
-  wabt as loadWabt,
-} from "../client_deps.ts";
+import { compile, load, wabt as loadWabt } from "../client_deps.ts";
 
 import MonacoEditor from "../components/Editor.tsx";
 
 import { IconChevron } from "../components/Icons.tsx";
-import { WhistleLanguageDef, WatDefinitions } from "../data/playground.ts";
+import { WatDefinitions } from "../data/wat_def.ts";
+import { WhistleLanguageDef } from "../data/whistle_def.ts";
 
 export default class Playground extends Component {
   wabt!: any;

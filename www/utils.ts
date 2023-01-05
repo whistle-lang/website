@@ -25,4 +25,4 @@ function isUndefined(input: any) {
   return input === undefined;
 }
 
-export { noop, getOrCreateModel, isUndefined };
+export { getOrCreateModel, isUndefined, noop };

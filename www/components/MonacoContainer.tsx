@@ -2,23 +2,21 @@
 
 import PropTypes from "https://esm.sh/prop-types@15.8.1";
 
-
-import Loading from './Loading.tsx';
+import Loading from "./Loading.tsx";
 
 const styles = {
   wrapper: {
-    display: 'flex',
-    position: 'relative',
-    textAlign: 'initial',
+    display: "flex",
+    position: "relative",
+    textAlign: "initial",
   },
   fullWidth: {
-    width: '100%',
+    width: "100%",
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
 };
-
 
 // ** forwardref render functions do not support proptypes or defaultprops **
 // one of the reasons why we use a separate prop for passing ref instead of using forwardref
@@ -31,7 +29,7 @@ function MonacoContainer({
   _ref,
   className,
   wrapperProps,
-// deno-lint-ignore no-explicit-any
+  // deno-lint-ignore no-explicit-any
 }: any) {
   return (
     <section style={{ ...styles.wrapper, width, height }} {...wrapperProps}>
@@ -48,7 +46,8 @@ function MonacoContainer({
 MonacoContainer.propTypes = {
   width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  loading: PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
+  loading:
+    PropTypes.oneOfType([PropTypes.element, PropTypes.string]).isRequired,
   isEditorReady: PropTypes.bool.isRequired,
   className: PropTypes.string,
   wrapperProps: PropTypes.object,

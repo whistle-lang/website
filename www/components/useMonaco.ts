@@ -1,9 +1,9 @@
 // ported from https://github.com/suren-atoyan/monaco-react
 
-import { useState } from 'preact/hooks';
+import { useState } from "preact/hooks";
 import loader from "https://esm.sh/@monaco-editor/loader@1.3.2";
 
-import useMount from './useMount.ts';
+import useMount from "./useMount.ts";
 
 export default function useMonaco() {
   const [monaco, setMonaco] = useState(loader.__getMonacoInstance());
