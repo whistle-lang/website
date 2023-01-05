@@ -1,14 +1,8 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
-
-import { Fragment, h, Head, tw } from "../client_deps.ts";
 import NavigationBar from "../components/NavigationBar.tsx";
 import Footer from "../components/Footer.tsx";
-
+import Playground from "../islands/Playground.tsx";
+import { Head } from "$fresh/runtime.ts";
 export default function Index() {
-  const main = tw`max-w-screen-sm mx-auto my-16 px(4 sm:6 md:8) space-y-4`;
-  const text = tw`text-gray-600`;
-
   return (
     <>
       <Head>
@@ -18,36 +12,34 @@ export default function Index() {
           content="A statically typed, fast, experimental, compile-to-wasm programming language"
         />
       </Head>
-      <Hero />
-      <NavigationBar active="/" />
-      <section class={main}>
-        <p class={text}>
-          Whistle is a new programming language developed by the Whistle team
-          and contributers. It is mainly developed for the purpose of learning
-          about the internals of programming languages but also because it is
-          fun to have created our very own programming language. Currently
-          Whistle is in very early stages of development with no plans of
-          becoming a go-to language for any kind of serious project for the
-          foreseeable future. This will however not stop us from exploring it's
-          limits to further develop Whistle and hopefully one day make it a
-          useable language.
-        </p>
-      </section>
+      <div className={`min-h-screen flex flex-col`}>
+        <Hero />
+        <NavigationBar active="/" />
+        <div
+          className={`flex-grow-1 flex flex-col w-full max-w-screen-md mx-auto px-4 py-8 gap-6 space-y-4`}
+        >
+          <p className={`text-gray-600`}>
+            Whistle is a programming language that compiles to web assembly by
+            default and is tiny enough to be embedded into your application.
+            Beware! Whistle is not stable and will change in the near future.
+          </p>
+          <p className="font-bold text(center 2xl) pt-10">
+            Try Whistle in your browser
+          </p>
+          <Playground />
+        </div>
+      </div>
       <Footer />
     </>
   );
 }
 
 function Hero() {
-  const container = tw`w-full h-64 flex justify-center items-center flex-col`;
-  const header = tw`max-w-md`;
-  const subtitle = tw`max-w-screen-sm mt-4 text(2xl gray-600 center)`;
   return (
-    <section class={container}>
-      <img class={header} src="/whistle_horizontal_dark.svg" />
-      <p class={subtitle}>
-        A statically typed, fast, experimental, compile-to-wasm programming
-        language
+    <section class={`w-full h-64 flex justify-center items-center flex-col`}>
+      <img class={`max-w-md`} src="/whistle_horizontal_dark.svg" />
+      <p class={`max-w-screen-sm mt-4 text(2xl gray-600 center)`}>
+        A dope new blazing fast programming language that targets WebAssembly
       </p>
     </section>
   );

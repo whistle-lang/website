@@ -1,7 +1,2 @@
-export * from "https://raw.githubusercontent.com/lucacasonato/fresh/main/runtime.ts";
-import { IS_BROWSER } from "https://raw.githubusercontent.com/lucacasonato/fresh/main/runtime.ts";
-import { apply, setup, tw } from "https://esm.sh/twind@0.16.16";
-export { apply, setup, tw };
-if (IS_BROWSER) {
-  setup({});
-}
+export * from "https://raw.githubusercontent.com/load1n9/whistle_bindgen/main/lib.ts";
+export { default as wabt } from "https://esm.sh/wabt@1.0.28?target=esnext";

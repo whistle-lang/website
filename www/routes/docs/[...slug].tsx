@@ -1,11 +1,11 @@
-/** @jsx h */
-/** @jsxFrag Fragment */
+import { Handlers, PageProps } from "$fresh/server.ts";
+import { Head } from "$fresh/runtime.ts";
 
-import { apply, Fragment, h, Head, PageProps, tw } from "../../client_deps.ts";
-import { gfm, Handlers } from "../../server_deps.ts";
+import { gfm } from "../../server_deps.ts";
 import DocsSidebar from "../../components/DocsSidebar.tsx";
 import Footer from "../../components/Footer.tsx";
 import NavigationBar from "../../components/NavigationBar.tsx";
+import { IconWhistle } from "../../components/Icons.tsx";
 import {
   SLUGS,
   TABLE_OF_CONTENTS,
@@ -47,29 +47,33 @@ export default function DocsPage(props: PageProps<Data>) {
   return (
     <>
       <Head>
-        <title>{props.data.page?.title ?? "Not Found"} | Whistle docs</title>
+        <title>{props.data.page?.title ?? "Not Found"} - Whistle Docs</title>
         <link rel="stylesheet" href="/gfm.css" />
       </Head>
-      <Header />
-      <NavigationBar active="/docs" />
-      <Main path={props.url.pathname} page={props.data.page} />
+      <div class={`min-h-screen`}>
+        <div class={`flex flex-col`}>
+          <Header />
+          <NavigationBar active="/docs" />
+        </div>
+        <Main path={props.url.pathname} page={props.data.page} />
+      </div>
       <Footer />
     </>
   );
 }
 
 function Header() {
-  const header = tw`mx-auto max-w-screen-lg flex gap-3 justify-between`;
-  const sidebarButton = tw
-    `px-4 py-4 md:hidden border(l-2 gray-100) flex items-center hover:bg-gray-50`;
   return (
-    <header class={header}>
-      <div class={tw`p-4`}>
-        <Title />
+    <header class={`md:mx-auto max-w-screen-lg flex gap-3 justify-between`}>
+      <div class={`p-4`}>
+        <IconWhistle />
       </div>
-      <label for="docs_sidebar" class={sidebarButton}>
+      <label
+        for="docs_sidebar"
+        class={`px-4 py-4 md:hidden border(l-2 gray-100) flex items-center hover:bg-gray-50`}
+      >
         <svg
-          class={tw`h-6 w-6`}
+          class={`h-6 w-6`}
           stroke="currentColor"
           fill="none"
           viewBox="0 0 24 24"
@@ -87,20 +91,8 @@ function Header() {
   );
 }
 
-function Title() {
-  return (
-    <>
-      <p class={tw`flex items-center`}>
-        <a href="/">
-          <img class={tw`h-12 mx-4`} src="/whistle_horizontal_dark.svg" />
-        </a>
-      </p>
-    </>
-  );
-}
-
 function Main(props: { path: string; page: Page }) {
-  const main = tw`mx-auto max-w-screen-lg px-4 flex gap-6`;
+  const main = `mx-auto max-w-screen-lg px-4 flex gap-6`;
   return (
     <>
       <MobileSidebar path={props.path} />
@@ -113,17 +105,17 @@ function Main(props: { path: string; page: Page }) {
 }
 
 function MobileSidebar(props: { path: string }) {
-  const container = tw`fixed inset-0 flex z-40 hidden` + " toggled";
-  const backdrop = tw`absolute inset-0 bg-gray-600 opacity-75`;
-  const sidebar = tw
+  const container = `fixed inset-0 flex z-40 hidden` + " toggled";
+  const backdrop = `absolute inset-0 bg-gray-600 opacity-75`;
+  const sidebar =
     `relative flex-1 flex flex-col w-[16rem] h-full bg-white border(r-2 gray-100)`;
-  const heading = tw`p-4 border(b-2 gray-100)`;
-  const items = tw`pt-2 pb-16 px-4 overflow-x-auto`;
+  const heading = `p-4 border(b-2 gray-100)`;
+  const items = `pt-2 pb-16 px-4 overflow-x-auto`;
   return (
     <>
       <input
         type="checkbox"
-        class={tw`hidden` + " toggle"}
+        class={`hidden` + " toggle"}
         id="docs_sidebar"
         autocomplete="off"
       >
@@ -132,7 +124,7 @@ function MobileSidebar(props: { path: string }) {
         <label class={backdrop} for="docs_sidebar" />
         <div class={sidebar}>
           <div class={heading}>
-            <Title />
+            <IconWhistle />
           </div>
           <nav class={items}>
             <DocsSidebar path={props.path} />
@@ -146,8 +138,7 @@ function MobileSidebar(props: { path: string }) {
 function DesktopSidebar(props: { path: string }) {
   return (
     <nav
-      class={tw
-        `w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)`}
+      class={`w-[16rem] flex-shrink-0 hidden md:block py-8 pr-4 border(r-2 gray-100)`}
     >
       <DocsSidebar path={props.path} />
     </nav>
@@ -155,15 +146,15 @@ function DesktopSidebar(props: { path: string }) {
 }
 
 function Content(props: { page: Page }) {
-  const main = tw`w-full py-8 overflow-hidden`;
-  const title = tw`text(4xl gray-900) tracking-tight font-extrabold mt-6`;
-  const body = tw`mt-6`;
+  const main = `w-full py-8 overflow-hidden`;
+  const title = `text(4xl gray-900) tracking-tight font-extrabold mt-6`;
+  const body = `mt-6`;
   const html = gfm.render(props.page.markdown);
   return (
     <main class={main}>
       <h1 class={title}>{props.page.title}</h1>
       <div
-        class={`${body} markdown-body`}
+        class={`${body} ${"markdown-body"}`}
         dangerouslySetInnerHTML={{ __html: html }}
       />
       <ForwardBackButtons slug={props.page.slug} />
@@ -171,7 +162,7 @@ function Content(props: { page: Page }) {
   );
 }
 
-const button = apply`p-2 bg-gray-100 w-full border(1 gray-200) grid`;
+const button = `p-2 bg-gray-100 w-full border(1 gray-200) grid`;
 
 function ForwardBackButtons(props: { slug: string }) {
   const currentIndex = SLUGS.findIndex((slug) => slug === props.slug);
@@ -180,14 +171,14 @@ function ForwardBackButtons(props: { slug: string }) {
   const previous = TABLE_OF_CONTENTS[previousSlug];
   const next = TABLE_OF_CONTENTS[nextSlug];
 
-  const upper = tw`text(sm gray-600)`;
-  const category = tw`font-normal`;
-  const lower = tw`text-gray-900 font-medium`;
+  const upper = `text(sm gray-600)`;
+  const category = `font-normal`;
+  const lower = `text-gray-900 font-medium`;
 
   return (
-    <div class={tw`mt-8 flex flex(col md:row) gap-4`}>
+    <div class={`mt-8 flex flex(col md:row) gap-4`}>
       {previous && (
-        <a href={previous.href} class={tw`${button} text-left`}>
+        <a href={previous.href} class={`${button} text-left`}>
           <span class={upper}>{"<-"} Previous</span>
           <span class={lower}>
             <span class={category}>
@@ -200,7 +191,7 @@ function ForwardBackButtons(props: { slug: string }) {
         </a>
       )}
       {next && (
-        <a href={next.href} class={tw`${button} text-right`}>
+        <a href={next.href} class={`${button} text-right`}>
           <span class={upper}>Next {"->"}</span>
           <span class={lower}>
             <span class={category}>

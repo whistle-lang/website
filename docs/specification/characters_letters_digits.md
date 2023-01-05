@@ -1,7 +1,7 @@
-There are a few predefined rules that could not easily be written as valid
-EBNF or are used multiple times and therefor defined here to avoid repeating
-them. The EBNF rules for the identifiers `unicode_*` are written within
-comments as there is no real way to define them otherways.
+There are a few predefined rules that could not easily be written as valid EBNF
+or are used multiple times and therefor defined here to avoid repeating them.
+The EBNF rules for the identifiers `unicode_*` are written within comments as
+there is no real way to define them otherways.
 
 ```EBNF
 unicode_any       = // any Unicode code point
