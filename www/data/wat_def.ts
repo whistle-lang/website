@@ -1204,7 +1204,9 @@ export function Wat(monaco: any) {
         if (!word) {
           return;
         }
-        const item = WatGetCompletionItems(monaco).find((x) => x.label === word);
+        const item = WatGetCompletionItems(monaco).find((x) =>
+          x.label === word
+        );
         if (!item) {
           return;
         }

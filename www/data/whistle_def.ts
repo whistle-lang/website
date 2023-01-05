@@ -41,7 +41,7 @@ export function WhistleGetCompletionItems(monaco: any): any[] {
       documentation: "string",
       kind: keyword,
       insertText: "str",
-    },    
+    },
     {
       label: "bool",
       documentation: "boolean",

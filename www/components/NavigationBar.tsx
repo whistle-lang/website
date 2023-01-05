@@ -1,3 +1,5 @@
+import { GitHub } from "./Icons.tsx";
+
 export default function NavigationBar(props: { active: string }) {
   const items = [
     {
@@ -15,6 +17,10 @@ export default function NavigationBar(props: { active: string }) {
     {
       name: "Playground",
       href: "/playground",
+    },
+    {
+      name: <GitHub class="w-6 h-6" />,
+      href: "https://github.com/whistle-lang",
     },
   ];
 

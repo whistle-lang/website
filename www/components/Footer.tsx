@@ -1,10 +1,13 @@
+import IconBrandGithub from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/brand-github.tsx";
+import IconBrandDiscord from "https://deno.land/x/tabler_icons_tsx@0.0.2/tsx/brand-discord.tsx";
+
 const LINKS = [
   {
-    title: "Source",
+    title: <IconBrandGithub class="w-6 h-6" />,
     href: "https://github.com/whistle-lang",
   },
   {
-    title: "Discord",
+    title: <IconBrandDiscord class="w-6 h-6" />,
     href: "https://discord.gg/hdKxd5x",
   },
 ];
@@ -26,7 +29,11 @@ export default function Footer() {
         ))}
       </div>
       <div class={copyright}>
-        <span>© 2020-2023 the Whistle authors</span>
+        <a
+          href={"https://raw.githubusercontent.com/whistle-lang/website/main/LICENSE"}
+        >
+          © 2020-2023 the Whistle authors
+        </a>
       </div>
     </footer>
   );

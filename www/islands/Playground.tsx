@@ -37,10 +37,11 @@ export default class Playground extends Component {
         class={`h-full w-full min-h-[24rem] flex-grow-1 flex flex-col rounded-lg bg-gray-50 border-1`}
       >
         <ul class={`flex gap-8 py-2 px-4 bg-gray-50 border-b-1`}>
-          <TopBarButton onClick={() => this.run(editorRef, textRef)}>
-            Run
-          </TopBarButton>
+          Whistle
           <div class={`ml-auto pl-4`}>
+            <TopBarButton onClick={() => this.run(editorRef, textRef)}>
+              Run
+            </TopBarButton>
           </div>
         </ul>
         <Panels monacoRef={editorRef} textRef={textRef} />
@@ -161,7 +162,6 @@ function Panels(
       );
       monaco.languages.registerHoverProvider("wat", wat.HoverProvider);
     });
-
   };
   const handleEditorDidMount = (editor: any, monaco: any) => {
     if (monacoRef) monacoRef.current = editor;
@@ -170,7 +170,7 @@ function Panels(
     if (textRef) textRef.current = editor;
   };
   const editorOptions = {
-    contextmenu: false,
+    contextmenu: true,
     overviewRulerBorder: false,
     lineDecorationsWidth: 0,
     lineNumbersMinChars: 3,
@@ -188,7 +188,7 @@ function Panels(
     },
   };
   return (
-    <div class={`flex-grow-1 grid grid-cols-2 bg-white `}>
+    <div class={`flex-grow-2 grid grid-cols-2 bg-white `}>
       <div class={`border-r-1 h(full md:auto)`}>
         <MonacoEditor
           beforeMount={handleEditorWillMount}

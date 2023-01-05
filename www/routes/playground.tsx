@@ -29,13 +29,3 @@ function Main() {
     </main>
   );
 }
-
-/*
-<div class={tw`flex`}>
-  <div class={tw``}>
-    <Editor />
-  </div>
-  <div class={tw``}>
-  </div>
-</div>
-*/
