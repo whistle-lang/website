@@ -10,6 +10,7 @@ const loadingStyles = {
 
 // deno-lint-ignore no-explicit-any
 export default function Loading({ content }: any) {
-flex h-full w-full justify-center items-center
-  return <div style={loadingStyles}>{content}</div>;
+  return (
+    <div style="flex h-full w-full justify-center items-center">{content}</div>
+  );
 }
