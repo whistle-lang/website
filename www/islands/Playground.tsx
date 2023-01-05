@@ -6,8 +6,8 @@ import { compile, load, wabt as loadWabt } from "../client_deps.ts";
 import MonacoEditor from "../components/Editor.tsx";
 
 import { IconChevron } from "../components/Icons.tsx";
-import { WatDefinitions } from "../data/wat_def.ts";
-import { WhistleLanguageDef } from "../data/whistle_def.ts";
+import { Wat } from "../data/wat_def.ts";
+import { Whistle } from "../data/whistle_def.ts";
 
 export default class Playground extends Component {
   wabt!: any;
@@ -126,16 +126,42 @@ function Panels(
   },
 ) {
   const handleEditorWillMount = (monaco: any) => {
+    const whistle = Whistle(monaco);
     monaco.languages.register({
       id: "whistle",
     });
-    monaco.languages.setMonarchTokensProvider("whistle", WhistleLanguageDef);
+    monaco.languages.setMonarchTokensProvider(
+      "whistle",
+      whistle.MonarchDefinitions,
+    );
+    monaco.languages.setLanguageConfiguration(
+      "whistle",
+      whistle.LanguageConfiguration,
+    );
+    monaco.languages.registerCompletionItemProvider(
+      "whistle",
+      whistle.CompletionItemProvider,
+    );
+    monaco.languages.registerHoverProvider("whistle", whistle.HoverProvider);
   };
   const handleOutputWillMount = (monaco: any) => {
+    const wat = Wat(monaco);
     monaco.languages.register({
       id: "wat",
     });
-    monaco.languages.setMonarchTokensProvider("wat", WatDefinitions);
+    monaco.languages.onLanguage("wat", () => {
+      monaco.languages.setMonarchTokensProvider("wat", wat.MonarchDefinitions);
+      monaco.languages.setLanguageConfiguration(
+        "wat",
+        wat.LanguageConfiguration,
+      );
+      monaco.languages.registerCompletionItemProvider(
+        "wat",
+        wat.CompletionItemProvider,
+      );
+      monaco.languages.registerHoverProvider("wat", wat.HoverProvider);
+    });
+
   };
   const handleEditorDidMount = (editor: any, monaco: any) => {
     if (monacoRef) monacoRef.current = editor;
